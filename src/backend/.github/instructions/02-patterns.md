@@ -1,0 +1,605 @@
+# 🎨 Padrões de Implementação
+
+## 📌 Indice de Padrões
+
+1. [Result Pattern](#result-pattern)
+2. [Entity Pattern](#entity-pattern)
+3. [Repository Pattern](#repository-pattern)
+4. [Handler Pattern](#handler-pattern)
+5. [Validator Pattern](#validator-pattern)
+6. [Controller Pattern](#controller-pattern)
+7. [Value Object Pattern](#value-object-pattern)
+
+---
+
+## Result Pattern
+
+### Propósito
+Retornar sucesso ou fracasso estruturado (sem exceções em fluxos normais).
+
+### Implementação
+
+```csharp
+// Application/Common/Results/Result.cs
+namespace AgenteViagem.Application.Common.Results;
+
+public sealed class Result<T>
+{
+    public bool IsSuccess { get; }
+    public T? Value { get; }
+    public Error? Error { get; }
+
+    private Result(bool isSuccess, T? value, Error? error)
+    {
+        IsSuccess = isSuccess;
+        Value = value;
+        Error = error;
+    }
+
+    public static Result<T> Success(T value) => new Result<T>(true, value, null);
+    public static Result<T> Failure(Error error) => new Result<T>(false, default, error);
+
+    public TResult Match<TResult>(
+        Func<T, TResult> onSuccess,
+        Func<Error, TResult> onFailure) =>
+        IsSuccess ? onSuccess(Value!) : onFailure(Error!);
+
+    public async Task<TResult> MatchAsync<TResult>(
+        Func<T, Task<TResult>> onSuccess,
+        Func<Error, Task<TResult>> onFailure) =>
+        IsSuccess ? await onSuccess(Value!) : await onFailure(Error!);
+}
+
+public sealed class Result
+{
+    public bool IsSuccess { get; }
+    public Error? Error { get; }
+
+    private Result(bool isSuccess, Error? error)
+    {
+        IsSuccess = isSuccess;
+        Error = error;
+    }
+
+    public static Result Success() => new Result(true, null);
+    public static Result Failure(Error error) => new Result(false, error);
+}
+
+// Application/Common/Results/Error.cs
+public sealed class Error
+{
+    public const string VALIDATION_ERROR = "validation_error";
+    public const string NOT_FOUND = "not_found";
+    public const string UNAUTHORIZED = "unauthorized";
+    public const string CONFLICT = "conflict";
+
+    public string Code { get; }
+    public string Message { get; }
+    public Dictionary<string, string[]>? Details { get; }
+
+    public Error(string code, string message, Dictionary<string, string[]>? details = null)
+    {
+        Code = code;
+        Message = message;
+        Details = details;
+    }
+
+    public static Error Validation(string message) => 
+        new Error(VALIDATION_ERROR, message);
+
+    public static Error Validation(Dictionary<string, string[]> details) =>
+        new Error(VALIDATION_ERROR, "Um ou mais erros de validação", details);
+
+    public static Error NotFound(string message) =>
+        new Error(NOT_FOUND, message);
+
+    public static Error Unauthorized(string message) =>
+        new Error(UNAUTHORIZED, message);
+
+    public static Error Conflict(string message) =>
+        new Error(CONFLICT, message);
+}
+```
+
+### Uso em Handler
+
+```csharp
+public async Task<Result<UsuarioResponse>> HandleAsync(CriarUsuarioRequest request, CancellationToken ct)
+{
+    // Retornar sucesso
+    return Result<UsuarioResponse>.Success(new UsuarioResponse { Id = usuario.Id });
+
+    // Retornar falha
+    return Result<UsuarioResponse>.Failure(Error.Validation("Email inválido"));
+}
+```
+
+### Uso em Controller
+
+```csharp
+var result = await handler.HandleAsync(request, ct);
+return result.Match(
+    onSuccess: r => Ok(r),
+    onFailure: e => BadRequest(CreateProblemDetails(e))
+);
+```
+
+---
+
+## Entity Pattern
+
+### Propósito
+Representar agregado de domínio com invariantes validadas.
+
+### Template
+
+```csharp
+// Domain/Entities/Usuario.cs
+namespace AgenteViagem.Domain.Entities;
+
+public sealed class Usuario : BaseEntity
+{
+    // Propriedades (somente get, set privado)
+    public string Email { get; private set; } = null!;
+    public string SenhaHash { get; private set; } = null!;
+    public bool Ativo { get; private set; } = true;
+    public DateTimeOffset DataCriacao { get; private set; }
+
+    // Coleções (para relacionamentos)
+    private readonly List<FailedLoginAttempts> _tentativasLoginFalhadas = new();
+    public IReadOnlyCollection<FailedLoginAttempts> TentativasLoginFalhadas => _tentativasLoginFalhadas.AsReadOnly();
+
+    // Construtor privado (força usar factory)
+    private Usuario() { }
+
+    // ✅ Factory Method com Invariantes
+    public static Usuario Criar(string email, string senhaHash)
+    {
+        if (string.IsNullOrWhiteSpace(email))
+            throw new DomainException("Email é obrigatório");
+        if (string.IsNullOrWhiteSpace(senhaHash))
+            throw new DomainException("Senha hash é obrigatório");
+
+        return new Usuario
+        {
+            Id = Guid.NewGuid(),
+            Email = email.Trim(),
+            SenhaHash = senhaHash,
+            Ativo = true,
+            DataCriacao = DateTimeOffset.UtcNow
+        };
+    }
+
+    // ✅ Métodos de Comportamento (com lógica de negócio)
+    public void AtualizarEmail(string novoEmail)
+    {
+        if (string.IsNullOrWhiteSpace(novoEmail))
+            throw new DomainException("Email não pode ser vazio");
+        
+        Email = novoEmail.Trim();
+    }
+
+    public void Desativar()
+    {
+        if (!Ativo)
+            throw new DomainException("Usuário já está desativado");
+        
+        Ativo = false;
+    }
+
+    public void Ativar()
+    {
+        if (Ativo)
+            throw new DomainException("Usuário já está ativo");
+        
+        Ativo = true;
+    }
+}
+
+// Domain/Common/BaseEntity.cs
+public abstract class BaseEntity
+{
+    public Guid Id { get; protected set; }
+}
+
+// Domain/Common/DomainException.cs
+public sealed class DomainException : Exception
+{
+    public DomainException(string message) : base(message) { }
+}
+```
+
+### Invariantes vs Validadores
+
+```csharp
+// ✅ Invariante (Domain): Regra SEMPRE válida
+public static Usuario Criar(string email)
+{
+    if (string.IsNullOrWhiteSpace(email))
+        throw new DomainException("Email obrigatório");  // Sempre falha
+    return new Usuario { Email = email };
+}
+
+// ✅ Validador (Application): Regra de negócio contextual
+public class CriarUsuarioRequestValidator : AbstractValidator<CriarUsuarioRequest>
+{
+    public CriarUsuarioRequestValidator(IUsuarioRepository repo)
+    {
+        RuleFor(x => x.Email)
+            .NotEmpty()
+            .EmailAddress()
+            .MustAsync(async (email, ct) => 
+                await repo.EhEmailUnicoAsync(email, null, ct))
+            .WithMessage("Email já cadastrado");  // Pode variar por contexto
+    }
+}
+```
+
+---
+
+## Repository Pattern
+
+### Interface (Domain)
+
+```csharp
+// Domain/Interfaces/IRepository.cs
+namespace AgenteViagem.Domain.Interfaces;
+
+public interface IRepository<T> where T : BaseEntity
+{
+    Task<T?> ObterPorIdAsync(Guid id, CancellationToken ct = default);
+    Task<(IReadOnlyCollection<T> Itens, int Total)> ListarPaginadoAsync(
+        int numeroPagina, int tamanhoPagina, CancellationToken ct = default);
+    Task AdicionarAsync(T entity, CancellationToken ct = default);
+    void Atualizar(T entity);
+    void Remover(T entity);
+}
+
+// Domain/Interfaces/IUsuarioRepository.cs
+public interface IUsuarioRepository : IRepository<Usuario>
+{
+    Task<bool> EhEmailUnicoAsync(string email, Guid? excluirId = null, CancellationToken ct = default);
+    Task<Usuario?> ObterPorEmailAsync(string email, CancellationToken ct = default);
+}
+```
+
+### Implementação (Infrastructure)
+
+```csharp
+// Infrastructure/Repositories/UsuarioRepository.cs
+namespace AgenteViagem.Infrastructure.Repositories;
+
+public sealed class UsuarioRepository : IUsuarioRepository
+{
+    private readonly AppDbContext _context;
+
+    public UsuarioRepository(AppDbContext context) => _context = context;
+
+    public async Task<Usuario?> ObterPorIdAsync(Guid id, CancellationToken ct = default)
+        => await _context.Usuarios.AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Id == id, ct);
+
+    public async Task<(IReadOnlyCollection<Usuario> Itens, int Total)> ListarPaginadoAsync(
+        int numeroPagina, int tamanhoPagina, CancellationToken ct = default)
+    {
+        var query = _context.Usuarios.AsNoTracking();
+        var total = await query.CountAsync(ct);
+        var itens = await query
+            .OrderBy(u => u.Email)
+            .Skip((numeroPagina - 1) * tamanhoPagina)
+            .Take(tamanhoPagina)
+            .ToListAsync(ct);
+        return (itens, total);
+    }
+
+    public async Task AdicionarAsync(Usuario entity, CancellationToken ct = default)
+        => await _context.Usuarios.AddAsync(entity, ct);
+
+    public void Atualizar(Usuario entity) => _context.Usuarios.Update(entity);
+
+    public void Remover(Usuario entity) => _context.Usuarios.Remove(entity);
+
+    public async Task<bool> EhEmailUnicoAsync(string email, Guid? excluirId = null, CancellationToken ct = default)
+    {
+        var query = _context.Usuarios.AsNoTracking().Where(u => u.Email == email);
+        if (excluirId.HasValue) query = query.Where(u => u.Id != excluirId.Value);
+        return !await query.AnyAsync(ct);
+    }
+
+    public async Task<Usuario?> ObterPorEmailAsync(string email, CancellationToken ct = default)
+        => await _context.Usuarios.AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Email == email, ct);
+}
+```
+
+---
+
+## Handler Pattern
+
+### Template
+
+```csharp
+// Application/UseCases/Usuario/CriarUsuarioRequest.cs
+namespace AgenteViagem.Application.UseCases.Usuario;
+
+public sealed record CriarUsuarioRequest
+{
+    public required string Email { get; init; }
+    public required string Senha { get; init; }
+}
+
+// Application/UseCases/Usuario/UsuarioResponse.cs
+public sealed record UsuarioResponse
+{
+    public required Guid Id { get; init; }
+    public required string Email { get; init; }
+}
+
+// Application/UseCases/Usuario/CriarUsuarioHandler.cs
+public sealed class CriarUsuarioHandler
+{
+    private readonly IUsuarioRepository _repository;
+    private readonly IPasswordHasher _passwordHasher;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IValidator<CriarUsuarioRequest> _validator;
+    private readonly ILogger<CriarUsuarioHandler> _logger;
+
+    public CriarUsuarioHandler(
+        IUsuarioRepository repository,
+        IPasswordHasher passwordHasher,
+        IUnitOfWork unitOfWork,
+        IValidator<CriarUsuarioRequest> validator,
+        ILogger<CriarUsuarioHandler> logger)
+    {
+        _repository = repository;
+        _passwordHasher = passwordHasher;
+        _unitOfWork = unitOfWork;
+        _validator = validator;
+        _logger = logger;
+    }
+
+    public async Task<Result<UsuarioResponse>> HandleAsync(
+        CriarUsuarioRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        // 1. Validar
+        var validation = await _validator.ValidateAsync(request, cancellationToken);
+        if (!validation.IsValid)
+        {
+            var errors = validation.Errors
+                .GroupBy(e => e.PropertyName)
+                .ToDictionary(g => g.Key, g => g.Select(e => e.ErrorMessage).ToArray());
+            return Result<UsuarioResponse>.Failure(Error.Validation(errors));
+        }
+
+        try
+        {
+            // 2. Aplicar regras de domínio
+            var senhaHash = _passwordHasher.Hash(request.Senha);
+            var usuario = Usuario.Criar(request.Email, senhaHash);
+
+            // 3. Persistir
+            await _repository.AdicionarAsync(usuario, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
+
+            _logger.LogInformation("Usuário criado: {UsuarioId}", usuario.Id);
+
+            // 4. Retornar sucesso
+            return Result<UsuarioResponse>.Success(new UsuarioResponse
+            {
+                Id = usuario.Id,
+                Email = usuario.Email
+            });
+        }
+        catch (DomainException ex)
+        {
+            _logger.LogWarning("Erro de domínio ao criar usuário: {Mensagem}", ex.Message);
+            return Result<UsuarioResponse>.Failure(Error.Conflict(ex.Message));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erro inesperado ao criar usuário");
+            return Result<UsuarioResponse>.Failure(
+                Error.Domain("Erro ao processar solicitação"));
+        }
+    }
+}
+```
+
+---
+
+## Validator Pattern
+
+```csharp
+// Application/UseCases/Usuario/CriarUsuarioRequestValidator.cs
+namespace AgenteViagem.Application.UseCases.Usuario;
+
+public sealed class CriarUsuarioRequestValidator : AbstractValidator<CriarUsuarioRequest>
+{
+    private readonly IUsuarioRepository _repository;
+
+    public CriarUsuarioRequestValidator(IUsuarioRepository repository)
+    {
+        _repository = repository;
+
+        RuleFor(x => x.Email)
+            .NotEmpty()
+            .WithMessage("Email é obrigatório")
+            .EmailAddress()
+            .WithMessage("Email deve ser válido")
+            .MaximumLength(255)
+            .WithMessage("Email deve ter no máximo 255 caracteres")
+            .MustAsync(BeUniqueEmail)
+            .WithMessage("Este email já está cadastrado");
+
+        RuleFor(x => x.Senha)
+            .NotEmpty()
+            .WithMessage("Senha é obrigatória")
+            .MinimumLength(6)
+            .WithMessage("Senha deve ter no mínimo 6 caracteres");
+    }
+
+    private async Task<bool> BeUniqueEmail(string email, CancellationToken ct)
+        => await _repository.EhEmailUnicoAsync(email, null, ct);
+}
+```
+
+---
+
+## Controller Pattern
+
+```csharp
+// API/Controllers/v1/UsuariosController.cs
+namespace AgenteViagem.API.Controllers.v1;
+
+[ApiController]
+[Route("api/v1/[controller]")]
+[Produces("application/json")]
+public sealed class UsuariosController : ControllerBase
+{
+    private readonly CriarUsuarioHandler _criar;
+    private readonly ObterUsuarioPorIdHandler _obterPorId;
+    private readonly ILogger<UsuariosController> _logger;
+
+    public UsuariosController(
+        CriarUsuarioHandler criar,
+        ObterUsuarioPorIdHandler obterPorId,
+        ILogger<UsuariosController> logger)
+    {
+        _criar = criar;
+        _obterPorId = obterPorId;
+        _logger = logger;
+    }
+
+    [HttpPost]
+    [ProducesResponseType(typeof(UsuarioResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> Criar(
+        [FromBody] CriarUsuarioRequest request,
+        CancellationToken ct)
+    {
+        var result = await _criar.HandleAsync(request, ct);
+
+        return result.Match(
+            onSuccess: r => CreatedAtAction(nameof(ObterPorId), new { id = r.Id }, r),
+            onFailure: e => e.Code switch
+            {
+                Error.VALIDATION_ERROR => BadRequest(CreateValidationProblemDetails(e)),
+                Error.CONFLICT => Conflict(CreateProblemDetails(e)),
+                _ => StatusCode(500, CreateProblemDetails(e))
+            });
+    }
+
+    [HttpGet("{id:guid}")]
+    [ProducesResponseType(typeof(UsuarioResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> ObterPorId(Guid id, CancellationToken ct)
+    {
+        var result = await _obterPorId.HandleAsync(new ObterUsuarioPorIdRequest(id), ct);
+
+        return result.Match(
+            onSuccess: Ok,
+            onFailure: e => NotFound(CreateProblemDetails(e)));
+    }
+
+    private ProblemDetails CreateProblemDetails(Error error) => new()
+    {
+        Title = error.Code,
+        Detail = error.Message,
+        Status = error.Code switch
+        {
+            Error.NOT_FOUND => StatusCodes.Status404NotFound,
+            Error.VALIDATION_ERROR => StatusCodes.Status400BadRequest,
+            Error.CONFLICT => StatusCodes.Status409Conflict,
+            _ => StatusCodes.Status500InternalServerError
+        },
+        Instance = HttpContext.Request.Path
+    };
+
+    private ValidationProblemDetails CreateValidationProblemDetails(Error error)
+    {
+        var dict = error.Details ?? new Dictionary<string, string[]>();
+        return new ValidationProblemDetails(dict)
+        {
+            Title = "Erro de validação",
+            Detail = error.Message,
+            Status = StatusCodes.Status400BadRequest
+        };
+    }
+}
+```
+
+---
+
+## Value Object Pattern
+
+```csharp
+// Domain/ValueObjects/Email.cs
+namespace AgenteViagem.Domain.ValueObjects;
+
+public sealed class Email : ValueObject
+{
+    public string Valor { get; }
+
+    private Email(string valor) => Valor = valor;
+
+    public static Email Criar(string valor)
+    {
+        if (string.IsNullOrWhiteSpace(valor))
+            throw new DomainException("Email é obrigatório");
+        
+        if (!IsValido(valor))
+            throw new DomainException("Email inválido");
+
+        return new Email(valor.Trim());
+    }
+
+    private static bool IsValido(string email)
+    {
+        try
+        {
+            var addr = new System.Net.Mail.MailAddress(email);
+            return addr.Address == email;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    protected override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return Valor;
+    }
+
+    public override string ToString() => Valor;
+}
+
+// Domain/Common/ValueObject.cs
+public abstract class ValueObject : IEquatable<ValueObject>
+{
+    protected abstract IEnumerable<object> GetEqualityComponents();
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null || obj.GetType() != GetType())
+            return false;
+
+        var valueObject = (ValueObject)obj;
+        return GetEqualityComponents().SequenceEqual(valueObject.GetEqualityComponents());
+    }
+
+    public override int GetHashCode()
+        => GetEqualityComponents().Aggregate(1, (current, obj) => 
+            unchecked(current * 23 + obj?.GetHashCode() ?? 0));
+
+    public bool Equals(ValueObject? other) => Equals((object?)other);
+    public static bool operator ==(ValueObject? left, ValueObject? right) => Equals(left, right);
+    public static bool operator !=(ValueObject? left, ValueObject? right) => !Equals(left, right);
+}
+```
+
+---
+
+**Próxima Seção**: Ver [`03-conventions.md`](./03-conventions.md) para nomenclatura.
