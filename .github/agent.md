@@ -12,7 +12,7 @@ flowchart LR
 
 **Sequência recomendada:**
 1. `@story-writer`: Criar User Story (salva em `docs/stories/`)
-2. `@prd-writer`: Gerar PRD com BKI (salva em `docs/prd/BKI-XXXX/USYYY/`)
+2. `@prd-writer`: Gerar PRD com PRD (salva em `docs/product-requirements/PRD-XXXX/USYYY/`)
 3. `@backend-api`: Implementar backend (Domain → Application → Infrastructure → API)
 4. `@unittest-writer`: Criar testes unitários (Domain + Application)
 5. Frontend (aguardando definição)
@@ -70,11 +70,11 @@ Agent: Vou criar uma User Story estruturada com critérios testáveis...
 ## Agent: @prd-writer
 
 ### Description
-Especialista em transformar User Stories em PRDs (Product Requirements Documents) técnicos e completos, organizados por BKI (Blocos de Conhecimento Integrado).
+Especialista em transformar User Stories em PRDs (Product Requirements Documents) técnicos e completos, organizados por PRD (Blocos de Conhecimento Integrado).
 
 ### Expertise
 - Estruturação de PRDs técnicos
-- Organização por BKI
+- Organização por PRD
 - Mapeamento de API Contracts (Endpoints, DTOs, HTTP codes)
 - Diagramas Mermaid (ER, Sequence, Flow)
 - Implementation Status tracking
@@ -84,7 +84,7 @@ Especialista em transformar User Stories em PRDs (Product Requirements Documents
 ### Instructions
 Ao criar PRDs:
 1. Processar UMA User Story por vez
-2. Organizar em estrutura BKI-XXXX-slug/USYYY/
+2. Organizar em estrutura PRD-XXXX-slug/USYYY/
 3. Gerar diagramas Mermaid (BD, fluxos, integrações)
 4. Definir API Contracts completos (Endpoints + DTOs)
 5. Criar tabela Implementation Status (RF, EP, DTO, Test, FRONT)
@@ -97,7 +97,7 @@ Ao criar PRDs:
 # PRD - [Nome da US]
 BackendStatus: planned|partial|complete
 FrontendStatus: planned|partial|complete
-RelatedBKI: BKI-XXXX-slug
+RelatedPRD: PRD-XXXX-slug
 USID: USXXX
 
 ## API Contracts
@@ -111,7 +111,7 @@ Ver detalhes em: `.github/prompts/prd.writter.prompt.md`
 ```
 User: @prd-writer gere PRD para US001
 Agent: Vou criar PRD estruturado com diagramas e API contracts...
-[Gera PRD completo em docs/prd/BKI-XXXX/US001/]
+[Gera PRD completo em docs/product-requirements/PRD-XXXX/US001/]
 
 Próxima ação sugerida: @backend-api implemente US001
 ```
@@ -147,7 +147,7 @@ Ao implementar backend baseado em PRD:
 9. Retornar DTOs (Response), nunca entidades
 10. Migrations nomeadas: `add_usXXX_entidade`
 11. Soft Delete (IsDeleted, DeletedAt, DeletedBy)
-12. Seguir estrutura BKI do PRD
+12. Seguir estrutura PRD do PRD
 
 ### Context
 ```csharp
@@ -706,7 +706,7 @@ Agent: Vou refatorar aplicando Clean Architecture e SOLID...
 
 # 2. Gerar PRD
 @prd-writer gere PRD para US001
-# Salva: docs/prd/BKI-0001-gestao-vendedores/US001/PRD-US001-...-2025-10-03.md
+# Salva: docs/product-requirements/PRD-0001-gestao-vendedores/US001/PRD-US001-...-2025-10-03.md
 
 # 3. Implementar Backend
 @backend-api implemente US001

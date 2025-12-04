@@ -25,9 +25,9 @@ IMPORTANTE (ARMAZENAMENTO E ORGANIZAÇÃO DE ARQUIVOS):
 			 US010-03-inativacao.md
 		 ```
 
-3. Histórias agrupadas por BKI (quando explicitado):
-	 - Caso o usuário informe um BKI (ex.: `BKI-0005-gestao-vendas`), manter a estrutura base de PRDs em `docs/prd/` (já existente) MAS as user stories continuam em `docs/stories/`.
-	 - Opcionalmente (somente se solicitado), pode-se criar um diretório de agrupamento lógico: `docs/stories/BKI-0005-gestao-vendas/USXXX-<slug>.md`.
+3. Histórias agrupadas por PRD (quando explicitado):
+	 - Caso o usuário informe um PRD (ex.: `PRD-0005-gestao-vendas`), manter a estrutura base de PRDs em `docs/product-requirements/` (já existente) MAS as user stories continuam em `docs/stories/`.
+	 - Opcionalmente (somente se solicitado), pode-se criar um diretório de agrupamento lógico: `docs/stories/PRD-0005-gestao-vendas/USXXX-<slug>.md`.
 
 4. Nunca mover ou sobrescrever arquivos existentes sem necessidade. Se houver conflito de ID, pergunte antes.
 
@@ -54,7 +54,7 @@ Adicionar no topo metadados para rastreabilidade quando possível.
 # USER STORY: [Título da funcionalidade]  
 StoryVersion: v1  
 USID: USXXX  
-BKI Relacionado (opcional): BKI-000X-[slug]  
+PRD Relacionado (opcional): PRD-000X-[slug]  
 Fonte (resumo origem / solicitação): [origem, se fornecido]  
 
 Breve descrição objetiva da funcionalidade (1–3 linhas). Evitar repetir o texto da seção seguinte.

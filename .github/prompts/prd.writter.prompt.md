@@ -35,7 +35,7 @@ BackendStatus: planned|partial|complete
 FrontendStatus: planned|partial|complete
 PRDVersion: v1
 PRDDate: YYYY-MM-DD
-RelatedBKI: BKI-000X-[slug]
+RelatedPRD: PRD-000X-[slug]
 USID: US[NNN]
 SourceUserStory: docs/stories/US[NNN]-*.md (ajustar para o caminho real da US geradora)
 AcceptanceCriteriaRef: (referência aos critérios na User Story; não duplicar conteúdo)
@@ -474,26 +474,26 @@ Antes de salvar, validar:
 
 ---
 
-## 🗂️ Protocolo BKI (Blocos de Conhecimento)
+## 🗂️ Protocolo PRD (Blocos de Conhecimento)
 
 ### Fluxo de Criação
 
-**Sem BKI Ativo:**
+**Sem PRD Ativo:**
 ```
-📦 Informe o nome descritivo do novo BKI (ex: gestao de vendedores):
+📦 Informe o nome descritivo do novo PRD (ex: gestao de vendedores):
 ```
 
 **Cálculo Automático:**
-1. Listar `/docs/prd/BKI-*`
+1. Listar `/docs/prd/PRD-*`
 2. Extrair máximo numérico
 3. Incrementar +1, zero-pad 4 dígitos
 4. Gerar slug: lowercase, sem acentos, kebab-case
 
 **Confirmação:**
 ```
-✅ Novo BKI: BKI-0003-gestao-vendedores
+✅ Novo PRD: PRD-0003-gestao-vendedores
 📁 Estrutura:
-   /docs/prd/BKI-0003-gestao-vendedores/
+   /docs/prd/PRD-0003-gestao-vendedores/
      US001/
      US002/
      ...
@@ -501,11 +501,11 @@ Antes de salvar, validar:
 Confirmar criação? (sim/não)
 ```
 
-**BKI Existente:**
+**PRD Existente:**
 ```
-📂 BKIs disponíveis:
-1. BKI-0001-controle-clientes (3 PRDs)
-2. BKI-0002-financeiro-basico (5 PRDs)
+📂 PRDs disponíveis:
+1. PRD-0001-controle-clientes (3 PRDs)
+2. PRD-0002-financeiro-basico (5 PRDs)
 
 Escolher existente (1-2) ou criar novo (0)?
 ```
@@ -518,8 +518,8 @@ Escolher existente (1-2) ou criar novo (0)?
 
 ### Estrutura Final
 ```
-/docs/prd/
-  BKI-0003-gestao-vendedores/
+/docs/product-requirements/
+  PRD-0003-gestao-vendedores/
     US001/
       PRD-US001-cadastrar-vendedor-2025-10-01.md
     US002/
@@ -540,11 +540,11 @@ PRD-US[NNN]-[nome-funcionalidade]-YYYY-MM-DD.md
 ### Confirmação Pós-Salvamento
 ```
 ✅ PRD da US001 salvo em:
-📁 /docs/prd/BKI-0003-gestao-vendedores/US001/PRD-US001-cadastrar-vendedor-2025-10-01.md
+📁 /docs/product-requirements/PRD-0003-gestao-vendedores/US001/PRD-US001-cadastrar-vendedor-2025-10-01.md
 
 Próxima ação:
-1. Gerar outro PRD (neste BKI)
-2. Criar novo BKI
+1. Gerar outro PRD (neste PRD)
+2. Criar novo PRD
 3. Encerrar
 
 Escolha (1/2/3):

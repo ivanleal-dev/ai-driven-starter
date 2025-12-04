@@ -2,7 +2,7 @@
 agent: agent
 ---
 
-# Prompt: Implementação Backend Guiada por PRD
+# Prompt: Implementação Backend Guiada por product-requirements-document (PRD)
 
 ## 🎯 Objetivo
 
@@ -22,7 +22,7 @@ Implementar código backend completo baseado em PRD de User Stories, seguindo Cl
 
 ### 1. User Story & PRD
 - **Require**: User Story ID (ex: US001)
-- **Require**: PRD path `/docs/prd/BKI-XXXX/USYYY/PRD-*.md`
+- **Require**: PRD path `/docs/product-requirements/PRD-XXXX/USYYY/PRD-*.md`
 - **Enforce**: ONE User Story per execution
 
 ### 2. Infrastructure Instructions (READ IN ORDER)
@@ -36,7 +36,7 @@ Implementar código backend completo baseado em PRD de User Stories, seguindo Cl
 
 ### Phase 1: Analysis & Planning
 
-1. Load PRD
+1. Load product-requirements from given PRD path
 2. Extract:
    - Feature objective
    - Entities and fields
@@ -177,7 +177,7 @@ API:
 [FULL CODE]
 
 📝 README Update
-[BKI README content]
+[PRD README content]
 
 ✅ VALIDATION CHECKLIST
 - ✓ [All items checked]
