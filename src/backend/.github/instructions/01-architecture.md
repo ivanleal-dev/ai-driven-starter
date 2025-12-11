@@ -219,10 +219,10 @@ public sealed class UsuarioRepository : IUsuarioRepository
 
 **Exemplo**:
 ```csharp
-namespace AgenteViagem.API.Controllers.v1;
+namespace AgenteViagem.API.Controllers;
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[Route("api/[controller]")]
 public sealed class UsuariosController(CriarUsuarioHandler criar)
 {
     [HttpPost]
@@ -288,7 +288,7 @@ public sealed class UsuariosController(CriarUsuarioHandler criar)
 **Exemplo: Criar Usuário**
 
 ```
-1. [API] POST /api/v1/usuarios
+1. [API] POST /api/usuarios
    └─> Deserializar CriarUsuarioRequest
 
 2. [Controller] Injetar CriarUsuarioHandler

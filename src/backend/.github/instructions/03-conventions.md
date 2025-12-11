@@ -241,12 +241,12 @@ private void help(...) { }  // Muito genérico
 
 ```csharp
 // ✅ Correto (C# 10+)
-namespace AgenteViagem.API.Controllers.v1;
+namespace <SolutionName>.API.Controllers.v1;
 
 public sealed class UsuariosController : ControllerBase { }
 
 // ❌ Errado (C# 9 style)
-namespace AgenteViagem.API.Controllers.v1
+namespace <SolutionName>.API.Controllers.v1
 {
     public sealed class UsuariosController : ControllerBase { }
 }
@@ -349,7 +349,7 @@ global using FluentValidation;
 
 ```csharp
 // Domain/Common/Constants.cs
-namespace AgenteViagem.Domain.Common;
+namespace <SolutionName>.Domain.Common;
 
 public static class DomainConstants
 {
@@ -369,7 +369,7 @@ if (tentativas >= DomainConstants.MaximoTentativasLogin)
 ## ✅ Checklist de Nomenclatura
 
 - [ ] Todas entities em PT-BR (Usuario, Pedido, etc)
-- [ ] Handlers seguem padrão: Criar/Atualizar/ObterPorId/Obter Paginado/Excluir
+- [ ] Handlers seguem padrão: Criar/Atualizar/ObterPorId/ObterPaginado/Excluir
 - [ ] Interfaces começam com `I` (IUsuarioRepository)
 - [ ] Controllers no plural (UsuariosController)
 - [ ] Propriedades em PascalCase

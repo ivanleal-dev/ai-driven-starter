@@ -9,30 +9,30 @@
 cd src/backend
 
 # Criar solution
-dotnet new sln --name {{ProjectBase}}
+dotnet new sln --name <SolutionName>
 
-# Resultado: {{ProjectBase}}.sln criado
+# Resultado: <SolutionName>.sln criado
 ```
 
 ### 2. Criar Projetos Class Library
 
 ```powershell
 # 1. Domain (Núcleo - sem dependências externas)
-dotnet new classlib --name {{ProjectBase}}.Domain --framework net10.0
-cd {{ProjectBase}}.Domain
+dotnet new classlib --name <SolutionName>.Domain --framework net10.0
+cd <SolutionName>.Domain
 # Remover Class1.cs gerado automaticamente
 rm Class1.cs
 cd ..
 
 # 2. Application (Orquestração)
-dotnet new classlib --name {{ProjectBase}}.Application --framework net10.0
-cd {{ProjectBase}}.Application
+dotnet new classlib --name <SolutionName>.Application --framework net10.0
+cd <SolutionName>.Application
 rm Class1.cs
 cd ..
 
 # 3. Infrastructure (Detalhes técnicos)
-dotnet new classlib --name {{ProjectBase}}.Infrastructure --framework net10.0
-cd {{ProjectBase}}.Infrastructure
+dotnet new classlib --name <SolutionName>.Infrastructure --framework net10.0
+cd <SolutionName>.Infrastructure
 rm Class1.cs
 cd ..
 ```
@@ -41,8 +41,8 @@ cd ..
 
 ```powershell
 # 4. API (Apresentação)
-dotnet new webapi --name {{ProjectBase}}.API --framework net10.0 --skip-openapi
-cd {{ProjectBase}}.API
+dotnet new webapi --name <SolutionName>.API --framework net10.0 --skip-openapi
+cd <SolutionName>.API
 cd ..
 ```
 
@@ -50,30 +50,30 @@ cd ..
 
 ```powershell
 # De dentro de src/backend/
-dotnet sln add {{ProjectBase}}.Domain/{{ProjectBase}}.Domain.csproj
-dotnet sln add {{ProjectBase}}.Application/{{ProjectBase}}.Application.csproj
-dotnet sln add {{ProjectBase}}.Infrastructure/{{ProjectBase}}.Infrastructure.csproj
-dotnet sln add {{ProjectBase}}.API/{{ProjectBase}}.API.csproj
+dotnet sln add <SolutionName>.Domain/<SolutionName>.Domain.csproj
+dotnet sln add <SolutionName>.Application/<SolutionName>.Application.csproj
+dotnet sln add <SolutionName>.Infrastructure/<SolutionName>.Infrastructure.csproj
+dotnet sln add <SolutionName>.API/<SolutionName>.API.csproj
 ```
 
 ### 5. Adicionar Referências entre Projetos
 
 ```powershell
 # Application referencia Domain
-dotnet add {{ProjectBase}}.Application/{{ProjectBase}}.Application.csproj \
-    reference {{ProjectBase}}.Domain/{{ProjectBase}}.Domain.csproj
+dotnet add <SolutionName>.Application/<SolutionName>.Application.csproj \
+    reference <SolutionName>.Domain/<SolutionName>.Domain.csproj
 
 # Infrastructure referencia Domain e Application
-dotnet add {{ProjectBase}}.Infrastructure/{{ProjectBase}}.Infrastructure.csproj \
-    reference {{ProjectBase}}.Domain/{{ProjectBase}}.Domain.csproj
-dotnet add {{ProjectBase}}.Infrastructure/{{ProjectBase}}.Infrastructure.csproj \
-    reference {{ProjectBase}}.Application/{{ProjectBase}}.Application.csproj
+dotnet add <SolutionName>.Infrastructure/<SolutionName>.Infrastructure.csproj \
+    reference <SolutionName>.Domain/<SolutionName>.Domain.csproj
+dotnet add <SolutionName>.Infrastructure/<SolutionName>.Infrastructure.csproj \
+    reference <SolutionName>.Application/<SolutionName>.Application.csproj
 
 # API referencia Application e Infrastructure
-dotnet add {{ProjectBase}}.API/{{ProjectBase}}.API.csproj \
-    reference {{ProjectBase}}.Application/{{ProjectBase}}.Application.csproj
-dotnet add {{ProjectBase}}.API/{{ProjectBase}}.API.csproj \
-    reference {{ProjectBase}}.Infrastructure/{{ProjectBase}}.Infrastructure.csproj
+dotnet add <SolutionName>.API/<SolutionName>.API.csproj \
+    reference <SolutionName>.Application/<SolutionName>.Application.csproj
+dotnet add <SolutionName>.API/<SolutionName>.API.csproj \
+    reference <SolutionName>.Infrastructure/<SolutionName>.Infrastructure.csproj
 ```
 
 ---
@@ -89,7 +89,7 @@ dotnet add {{ProjectBase}}.API/{{ProjectBase}}.API.csproj \
 ### Application
 
 ```powershell
-cd {{ProjectBase}}.Application
+cd <SolutionName>.Application
 
 # FluentValidation para validadores
 dotnet add package FluentValidation --version 11.11.0
@@ -103,7 +103,7 @@ cd ..
 ### Infrastructure
 
 ```powershell
-cd {{ProjectBase}}.Infrastructure
+cd <SolutionName>.Infrastructure
 
 # Entity Framework Core
 dotnet add package Microsoft.EntityFrameworkCore --version 8.2.0
@@ -122,7 +122,7 @@ cd ..
 ### API
 
 ```powershell
-cd {{ProjectBase}}.API
+cd <SolutionName>.API
 
 # ASP.NET Core Web API (já incluído em webapi template)
 
@@ -146,9 +146,9 @@ mkdir tests
 cd tests
 
 # Criar projeto de testes
-dotnet new xunit --name {{ProjectBase}}.UnitTests --framework net10.0
+dotnet new xunit --name <SolutionName>.UnitTests --framework net10.0
 
-cd {{ProjectBase}}.UnitTests
+cd <SolutionName>.UnitTests
 
 # Test Tools
 dotnet add package FluentAssertions --version 6.12.2
@@ -156,8 +156,8 @@ dotnet add package Moq --version 4.20.70
 dotnet add package NSubstitute --version 5.1.0
 
 # Referências
-dotnet add package {{ProjectBase}}.Domain --project ../../../src/backend/{{ProjectBase}}.Domain/{{ProjectBase}}.Domain.csproj
-dotnet add package {{ProjectBase}}.Application --project ../../../src/backend/{{ProjectBase}}.Application/{{ProjectBase}}.Application.csproj
+dotnet add package <SolutionName>.Domain --project ../../../src/backend/<SolutionName>.Domain/<SolutionName>.Domain.csproj
+dotnet add package <SolutionName>.Application --project ../../../src/backend/<SolutionName>.Application/<SolutionName>.Application.csproj
 
 cd ../..
 ```
@@ -169,7 +169,7 @@ cd ../..
 ### Domain
 
 ```powershell
-cd {{ProjectBase}}.Domain
+cd <SolutionName>.Domain
 
 # Criar pastas
 mkdir Common Entities ValueObjects Enums Interfaces
@@ -185,7 +185,7 @@ cd ..
 ### Application
 
 ```powershell
-cd {{ProjectBase}}.Application
+cd <SolutionName>.Application
 
 # Criar pastas
 mkdir Common
@@ -217,7 +217,7 @@ cd ..
 ### Infrastructure
 
 ```powershell
-cd {{ProjectBase}}.Infrastructure
+cd <SolutionName>.Infrastructure
 
 # Criar pastas
 mkdir Data
@@ -242,14 +242,13 @@ cd ..
 ### API
 
 ```powershell
-cd {{ProjectBase}}.API
+cd <SolutionName>.API
 
 # Remover Controllers padrão gerado
 rm -r Controllers
 
 # Criar pastas
 mkdir Controllers
-mkdir Controllers\v1
 mkdir Services
 mkdir Middleware
 mkdir Extensions
@@ -302,7 +301,7 @@ cd ..
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\AgenteViagem.Domain\AgenteViagem.Domain.csproj" />
+        <ProjectReference Include="..\<SolutionName>.Domain\<SolutionName>.Domain.csproj" />
     </ItemGroup>
 
 </Project>
@@ -335,8 +334,8 @@ cd ..
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\AgenteViagem.Domain\AgenteViagem.Domain.csproj" />
-        <ProjectReference Include="..\AgenteViagem.Application\AgenteViagem.Application.csproj" />
+        <ProjectReference Include="..\<SolutionName>.Domain\<SolutionName>.Domain.csproj" />
+        <ProjectReference Include="..\<SolutionName>.Application\<SolutionName>.Application.csproj" />
     </ItemGroup>
 
 </Project>
@@ -361,8 +360,8 @@ cd ..
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\AgenteViagem.Application\AgenteViagem.Application.csproj" />
-        <ProjectReference Include="..\AgenteViagem.Infrastructure\AgenteViagem.Infrastructure.csproj" />
+        <ProjectReference Include="..\<SolutionName>.Application\<SolutionName>.Application.csproj" />
+        <ProjectReference Include="..\<SolutionName>.Infrastructure\<SolutionName>.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
@@ -391,7 +390,7 @@ dotnet build -c Debug
 
 ## ✅ Checklist de Setup
 
-- [ ] Solution criada (AgenteViagem.sln)
+- [ ] Solution criada (<SolutionName>.sln)
 - [ ] 4 projetos criados (Domain, Application, Infrastructure, API)
 - [ ] Referências entre projetos corretas (API → Infra → App → Domain)
 - [ ] NuGet packages instalados

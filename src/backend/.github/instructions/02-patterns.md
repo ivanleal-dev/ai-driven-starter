@@ -21,7 +21,7 @@ Retornar sucesso ou fracasso estruturado (sem exceções em fluxos normais).
 
 ```csharp
 // Application/Common/Results/Result.cs
-namespace AgenteViagem.Application.Common.Results;
+namespace <SolutionName>.Application.Common.Results;
 
 public sealed class Result<T>
 {
@@ -135,7 +135,7 @@ Representar agregado de domínio com invariantes validadas.
 
 ```csharp
 // Domain/Entities/Usuario.cs
-namespace AgenteViagem.Domain.Entities;
+namespace <SolutionName>.Domain.Entities;
 
 public sealed class Usuario : BaseEntity
 {
@@ -243,7 +243,7 @@ public class CriarUsuarioRequestValidator : AbstractValidator<CriarUsuarioReques
 
 ```csharp
 // Domain/Interfaces/IRepository.cs
-namespace AgenteViagem.Domain.Interfaces;
+namespace <SolutionName>.Domain.Interfaces;
 
 public interface IRepository<T> where T : BaseEntity
 {
@@ -267,7 +267,7 @@ public interface IUsuarioRepository : IRepository<Usuario>
 
 ```csharp
 // Infrastructure/Repositories/UsuarioRepository.cs
-namespace AgenteViagem.Infrastructure.Repositories;
+namespace <SolutionName>.Infrastructure.Repositories;
 
 public sealed class UsuarioRepository : IUsuarioRepository
 {
@@ -320,7 +320,7 @@ public sealed class UsuarioRepository : IUsuarioRepository
 
 ```csharp
 // Application/UseCases/Usuario/CriarUsuarioRequest.cs
-namespace AgenteViagem.Application.UseCases.Usuario;
+namespace <SolutionName>.Application.UseCases.Usuario;
 
 public sealed record CriarUsuarioRequest
 {
@@ -412,7 +412,7 @@ public sealed class CriarUsuarioHandler
 
 ```csharp
 // Application/UseCases/Usuario/CriarUsuarioRequestValidator.cs
-namespace AgenteViagem.Application.UseCases.Usuario;
+namespace <SolutionName>.Application.UseCases.Usuario;
 
 public sealed class CriarUsuarioRequestValidator : AbstractValidator<CriarUsuarioRequest>
 {
@@ -448,14 +448,57 @@ public sealed class CriarUsuarioRequestValidator : AbstractValidator<CriarUsuari
 
 ## Controller Pattern
 
+### Base Controller (Infraestrutura Comum)
+
+Todos os controllers devem herdar de `BaseApiController` para reutilizar métodos comuns:
+
 ```csharp
-// API/Controllers/v1/UsuariosController.cs
-namespace AgenteViagem.API.Controllers.v1;
+// API/Controllers/Common/BaseApiController.cs
+namespace <SolutionName>.API.Controllers.Common;
 
 [ApiController]
-[Route("api/v1/[controller]")]
 [Produces("application/json")]
-public sealed class UsuariosController : ControllerBase
+public abstract class BaseApiController : ControllerBase
+{
+    protected ProblemDetails CreateProblemDetails(Error error) => new()
+    {
+        Title = error.Code,
+        Detail = error.Message,
+        Status = GetStatusCode(error.Code),
+        Instance = HttpContext.Request.Path
+    };
+
+    protected ValidationProblemDetails CreateValidationProblemDetails(Error error)
+    {
+        var dict = error.Details ?? new Dictionary<string, string[]>();
+        return new ValidationProblemDetails(dict)
+        {
+            Title = "Erro de validação",
+            Detail = error.Message,
+            Status = StatusCodes.Status400BadRequest,
+            Instance = HttpContext.Request.Path
+        };
+    }
+
+    private static int GetStatusCode(string errorCode) => errorCode switch
+    {
+        Error.NOT_FOUND => StatusCodes.Status404NotFound,
+        Error.VALIDATION_ERROR => StatusCodes.Status400BadRequest,
+        Error.UNAUTHORIZED => StatusCodes.Status401Unauthorized,
+        Error.CONFLICT => StatusCodes.Status409Conflict,
+        _ => StatusCodes.Status500InternalServerError
+    };
+}
+```
+
+### Uso em Controllers Específicos
+
+```csharp
+// API/Controllers/v1/UsuariosController.cs
+namespace <SolutionName>.API.Controllers.v1;
+
+[Route("api/v1/[controller]")]
+public sealed class UsuariosController : BaseApiController
 {
     private readonly CriarUsuarioHandler _criar;
     private readonly ObterUsuarioPorIdHandler _obterPorId;
@@ -502,33 +545,16 @@ public sealed class UsuariosController : ControllerBase
             onSuccess: Ok,
             onFailure: e => NotFound(CreateProblemDetails(e)));
     }
-
-    private ProblemDetails CreateProblemDetails(Error error) => new()
-    {
-        Title = error.Code,
-        Detail = error.Message,
-        Status = error.Code switch
-        {
-            Error.NOT_FOUND => StatusCodes.Status404NotFound,
-            Error.VALIDATION_ERROR => StatusCodes.Status400BadRequest,
-            Error.CONFLICT => StatusCodes.Status409Conflict,
-            _ => StatusCodes.Status500InternalServerError
-        },
-        Instance = HttpContext.Request.Path
-    };
-
-    private ValidationProblemDetails CreateValidationProblemDetails(Error error)
-    {
-        var dict = error.Details ?? new Dictionary<string, string[]>();
-        return new ValidationProblemDetails(dict)
-        {
-            Title = "Erro de validação",
-            Detail = error.Message,
-            Status = StatusCodes.Status400BadRequest
-        };
-    }
 }
 ```
+
+### Vantagens do BaseApiController
+
+- ✅ **Reutilização**: Métodos `CreateProblemDetails` e `CreateValidationProblemDetails` disponíveis em todos os controllers
+- ✅ **Manutenção**: Alterar comportamento de erro em um único lugar
+- ✅ **Consistência**: Todos os endpoints retornam erros no mesmo formato
+- ✅ **Extensibilidade**: Fácil adicionar novos métodos comuns (ex: autenticação, logging)
+- ✅ **Clean Code**: Controllers mais enxutos focados em orquestração
 
 ---
 
@@ -536,7 +562,7 @@ public sealed class UsuariosController : ControllerBase
 
 ```csharp
 // Domain/ValueObjects/Email.cs
-namespace AgenteViagem.Domain.ValueObjects;
+namespace <SolutionName>.Domain.ValueObjects;
 
 public sealed class Email : ValueObject
 {

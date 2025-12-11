@@ -126,7 +126,6 @@ src/backend/
     ├── Program.cs
     ├── Controllers/
     │   ├── HomeController.cs
-    │   └── v1/
     │       ├── UsuariosController.cs
     │       ├── PedidosController.cs
     │       ├── AutenticacaoController.cs
@@ -229,7 +228,6 @@ Infrastructure/
 ```
 API/
 ├── Controllers/
-│   ├── v1/  ← Versionamento de API
 │   │   ├── UsuariosController.cs
 │   │   ├── PedidosController.cs
 │   │   └── AutenticacaoController.cs
@@ -252,27 +250,27 @@ API/
 
 **Encontrar lógica de negócio**:
 ```
-src/backend/AgenteViagem.Domain/Entities/Usuario.cs
+src/backend/<SolutionName>.Domain/Entities/Usuario.cs
 ```
 
 **Encontrar validação**:
 ```
-src/backend/AgenteViagem.Application/UseCases/Usuario/CriarUsuario/CriarUsuarioRequestValidator.cs
+src/backend/<SolutionName>.Application/UseCases/Usuario/CriarUsuario/CriarUsuarioRequestValidator.cs
 ```
 
 **Encontrar orquestração**:
 ```
-src/backend/AgenteViagem.Application/UseCases/Usuario/CriarUsuario/CriarUsuarioHandler.cs
+src/backend/<SolutionName>.Application/UseCases/Usuario/CriarUsuario/CriarUsuarioHandler.cs
 ```
 
 **Encontrar acesso a dados**:
 ```
-src/backend/AgenteViagem.Infrastructure/Repositories/UsuarioRepository.cs
+src/backend/<SolutionName>.Infrastructure/Repositories/UsuarioRepository.cs
 ```
 
 **Encontrar endpoint HTTP**:
 ```
-src/backend/AgenteViagem.API/Controllers/v1/UsuariosController.cs
+src/backend/<SolutionName>.API/Controllers/v1/UsuariosController.cs
 ```
 
 ---

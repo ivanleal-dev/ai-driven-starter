@@ -6,7 +6,7 @@
 
 ```csharp
 // Infrastructure/Data/AppDbContext.cs
-namespace AgenteViagem.Infrastructure.Data;
+namespace <SolutionName>.Infrastructure.Data;
 
 public sealed class AppDbContext : DbContext
 {
@@ -57,7 +57,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 ```csharp
 // Infrastructure/Data/Configurations/UsuarioConfiguration.cs
-namespace AgenteViagem.Infrastructure.Data.Configurations;
+namespace <SolutionName>.Infrastructure.Data.Configurations;
 
 public sealed class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
 {
@@ -111,7 +111,7 @@ public sealed class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
 
 ```csharp
 // Infrastructure/Data/Configurations/FailedLoginAttemptsConfiguration.cs
-namespace AgenteViagem.Infrastructure.Data.Configurations;
+namespace <SolutionName>.Infrastructure.Data.Configurations;
 
 public sealed class FailedLoginAttemptsConfiguration 
     : IEntityTypeConfiguration<FailedLoginAttempts>
@@ -235,7 +235,7 @@ public override void Up(MigrationBuilder migrationBuilder)
 
 ```csharp
 // Domain/Interfaces/IUnitOfWork.cs
-namespace AgenteViagem.Domain.Interfaces;
+namespace <SolutionName>.Domain.Interfaces;
 
 public interface IUnitOfWork : IAsyncDisposable
 {
@@ -248,7 +248,7 @@ public interface IUnitOfWork : IAsyncDisposable
 
 ```csharp
 // Infrastructure/Data/UnitOfWork.cs
-namespace AgenteViagem.Infrastructure.Data;
+namespace <SolutionName>.Infrastructure.Data;
 
 public sealed class UnitOfWork : IUnitOfWork
 {
@@ -292,7 +292,7 @@ public sealed class UnitOfWork : IUnitOfWork
 
 ```csharp
 // Infrastructure/Repositories/Repository.cs
-namespace AgenteViagem.Infrastructure.Repositories;
+namespace <SolutionName>.Infrastructure.Repositories;
 
 public abstract class Repository<T> : IRepository<T> where T : BaseEntity
 {
@@ -334,7 +334,7 @@ public abstract class Repository<T> : IRepository<T> where T : BaseEntity
 
 ```csharp
 // Infrastructure/Repositories/UsuarioRepository.cs
-namespace AgenteViagem.Infrastructure.Repositories;
+namespace <SolutionName>.Infrastructure.Repositories;
 
 public sealed class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
 {
@@ -376,7 +376,7 @@ public sealed class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
 
 ```csharp
 // Application/Common/Pagination/ResultadoPaginado.cs
-namespace AgenteViagem.Application.Common.Pagination;
+namespace <SolutionName>.Application.Common.Pagination;
 
 public sealed record ResultadoPaginado<T>
 {

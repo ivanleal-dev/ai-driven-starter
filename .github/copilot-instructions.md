@@ -17,7 +17,7 @@ Se não houver nome definido, pergunte ao usuário antes de gerar código backen
 - **US (User Story)**: Item de backlog que descreve funcionalidade do ponto de vista do usuário (ex: US001)
 - **PRD (Product Requirements Document)**: Documento técnico detalhado de uma User Story
 - **RF (Requisito Funcional)**: Funcionalidade específica a ser implementada (mapeado no PRD)
-- **EP (Endpoint)**: Rota da API RESTful (ex: EP-001: POST /api/v1/vendedores)
+- **EP (Endpoint)**: Rota da API RESTful (ex: EP-001: POST /api/vendedores)
 - **DTO (Data Transfer Object)**: Objeto de transferência de dados entre camadas (Request/Response)
 - **FRONT**: Item de implementação frontend (mapeado no PRD)
 
@@ -47,7 +47,7 @@ Se não houver nome definido, pergunte ao usuário antes de gerar código backen
 ## Comunicação Frontend-Backend
 - APIs RESTful seguindo padrões REST
 - Usar DTOs para transferência de dados
-- Versionamento de API: /api/v1/
+- Não incluir versionamento de API neste escopo
 - Autenticação via JWT Bearer tokens
 
 ## Prompts e Agents Disponíveis

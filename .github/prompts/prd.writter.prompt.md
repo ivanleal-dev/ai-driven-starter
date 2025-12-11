@@ -40,15 +40,6 @@ USID: US[NNN]
 SourceUserStory: docs/stories/US[NNN]-*.md (ajustar para o caminho real da US geradora)
 AcceptanceCriteriaRef: (referência aos critérios na User Story; não duplicar conteúdo)
 
-EffortEstimate:
-  backend: "~X horas"  # estimativa objetiva
-  frontend: "~Y horas"
-  total: "~Z horas/dias"
-
-KPIs (opcional):
-  - "Ex: % conversão cadastro"
-  - "Ex: tempo médio fluxo <= 30s"
-
 RiscosEMitigacoes (opcional):
   - risco: "Dependência de serviço externo X não definida"
     impacto: "Alto"
@@ -182,9 +173,9 @@ uiSpec:
 5. Atualizar Implementation Status (e flags BackendStatus/FrontendStatus)
 
 ## API Contracts
-| EndpointID | Método | Path (/api/v1/...) | Auth | RequestDTO | ResponseDTO | HTTP Codes |
+| EndpointID | Método | Path (/api/...) | Auth | RequestDTO | ResponseDTO | HTTP Codes |
 |------------|--------|--------------------|------|------------|-------------|-----------|
-| EP-001 | POST | /api/v1/... | Bearer | CreateXRequest | XResponse | 201,400,401 |
+| EP-001 | POST | /api/... | Bearer | CreateXRequest | XResponse | 201,400,401 |
 
 ### Contratos de Dados
 
@@ -230,7 +221,7 @@ Documentar estrutura de dados necessária na UI:
 | ItemID | Tipo | Descrição | Responsável | Status | CommitRef |
 |--------|------|-----------|-------------|--------|-----------|
 | RF-001 | RF | Cadastrar X | backend | done | commit:abc123 |
-| EP-001 | ENDPOINT | POST /api/v1/... | backend | done | commit:abc123 |
+| EP-001 | ENDPOINT | POST /api/... | backend | done | commit:abc123 |
 | DTO-CreateXRequest | DTO | Backend request payload | backend | done | commit:abc123 |
 | TYPE-Vendedor | TYPE | Frontend tipo único | frontend | planned | - |
 | FRONT-001 | FRONT | Tela formulário X | frontend | planned | - |
