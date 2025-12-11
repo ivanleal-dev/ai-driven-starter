@@ -205,5 +205,110 @@ API:
 
 ---
 
-**Reference all doubts to `/src/backend/.github/instructions/` files**
+## 🔒 Regras de Segurança - Migrations
+
+**REGRA CRÍTICA**: A LLM **NUNCA** deve executar comandos de migration automaticamente.
+
+### Fluxo Obrigatório para Migrations:
+
+1. **Gerar código da migration** (apenas arquivos `.cs`)
+2. **Notificar o usuário**:
+   ```
+   ⚠️ ATENÇÃO: Migration criada mas NÃO aplicada ao banco de dados.
+   
+   📋 Para aplicar manualmente:
+   ```powershell
+   cd src/backend/<SolutionName>.Infrastructure
+   dotnet ef migrations add {NomeMigration} --startup-project ../<SolutionName>.API
+   dotnet ef database update --startup-project ../<SolutionName>.API
+   ```
+   
+   ❓ Deseja que eu execute estes comandos agora? (Requer confirmação explícita)
+   ```
+
+3. **Aguardar confirmação explícita** do usuário antes de executar:
+   - `dotnet ef migrations add`
+   - `dotnet ef database update`
+   - `dotnet ef migrations remove`
+   - `dotnet ef database drop`
+
+4. **Se o usuário confirmar**: executar e reportar resultado
+5. **Se o usuário negar**: finalizar sem executar
+
+### Comandos Proibidos Sem Confirmação:
+- ❌ `dotnet ef migrations add`
+- ❌ `dotnet ef database update`
+- ❌ `dotnet ef migrations remove`
+- ❌ `dotnet ef database drop`
+- ❌ Qualquer comando que altere o schema do banco de dados
+
+### Exceção:
+- ✅ Gerar apenas arquivos de configuração EF (`*Configuration.cs`)
+- ✅ Criar classes de entidade
+- ✅ Documentar comandos de migration (sem executar)
+
+---
+
+## 🏭 Criação de Nova Solution
+
+**REGRA OBRIGATÓRIA**: Antes de criar qualquer projeto backend, a LLM **DEVE**:
+
+1. **Verificar se a solution existe**:
+   ```powershell
+   # Procurar *.sln em src/backend/
+   ```
+
+2. **Se NÃO existir**:
+   ```
+   🆕 Nenhuma solution backend detectada.
+   
+   📋 Para criar a estrutura completa do backend, preciso do nome da solution.
+   
+   ❓ Qual o nome do projeto? (Ex: AgenteViagem, ControleEstoque, SistemaVendas)
+   
+   Este nome será usado para:
+   - <SolutionName>.sln
+   - <SolutionName>.Domain
+   - <SolutionName>.Application
+   - <SolutionName>.Infrastructure
+   - <SolutionName>.API
+   ```
+
+3. **Aguardar resposta do usuário**
+
+4. **Confirmar antes de criar**:
+   ```
+   ✅ Confirma criação da solution "<SolutionName>"? (sim/não)
+   
+   Estrutura a ser criada:
+   src/backend/
+   ├── <SolutionName>.sln
+   ├── <SolutionName>.Domain/
+   ├── <SolutionName>.Application/
+   ├── <SolutionName>.Infrastructure/
+   └── <SolutionName>.API/
+   ```
+
+5. **Somente após confirmação**: executar comandos de criação
+
+### Comandos que Requerem Confirmação:
+- ❌ `dotnet new sln`
+- ❌ `dotnet new classlib`
+- ❌ `dotnet new webapi`
+- ❌ Qualquer comando que crie projetos ou solutions
+
+### Se Solution Existir:
+- ✅ Usar o nome detectado automaticamente
+- ✅ Informar ao usuário: `📂 Solution detectada: <NomeEncontrado>`
+
+---
+
+## 🔒 Regras de Segurança - Migrations
+
+**REGRA CRÍTICA**: A LLM **NUNCA** deve executar comandos de migration automaticamente.
+
+### Fluxo Obrigatório para Migrations:
+
+1. **Gerar código da migration** (apenas arquivos `.cs`)
+2. **Notificar o usuário**
 

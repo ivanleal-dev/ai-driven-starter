@@ -11,6 +11,12 @@ Este é um monorepo com duas aplicações principais:
 
 Se não houver nome definido, pergunte ao usuário antes de gerar código backend.
 
+## Regras de Segurança
+- ⚠️ **Migrations**: NUNCA executar comandos `dotnet ef` sem confirmação explícita do usuário
+- ⚠️ **Solution**: SEMPRE perguntar o nome antes de criar projetos backend (se não existir)
+- ⚠️ **Banco de Dados**: Qualquer operação DDL (ALTER, DROP, CREATE TABLE) requer aprovação prévia
+- ✅ **Exceção**: Gerar apenas código (.cs) sem executar comandos de infra
+
 ## Glossário
 
 - **PRD (Bloco de Conhecimento Integrado)**: Agrupamento lógico de User Stories relacionadas (ex: PRD-0001-gestao-vendedores)

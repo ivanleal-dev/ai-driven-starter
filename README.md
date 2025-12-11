@@ -25,6 +25,16 @@ Este projeto implementa um **sistema de desenvolvimento orientado por IA** onde 
 
 O objetivo é **automatizar 80%+ do desenvolvimento** mantendo qualidade, padrões arquiteturais e documentação.
 
+### 🔒 Regras de Segurança
+
+Para garantir segurança e controle, o sistema implementa regras rígidas:
+
+- ⚠️ **Migrations**: NUNCA executar comandos `dotnet ef` sem confirmação explícita do usuário
+- ⚠️ **Solution**: SEMPRE perguntar o nome antes de criar projetos backend
+- ⚠️ **Banco de Dados**: Qualquer operação DDL (ALTER, DROP, CREATE TABLE) requer aprovação prévia
+- ⚠️ **API Versionamento**: Não incluir versionamento de API neste escopo
+- ✅ **Exceção**: Gerar apenas código (.cs) sem executar comandos de infra
+
 ---
 
 ## 🔄 Fluxo de Desenvolvimento com IA
@@ -44,7 +54,7 @@ O desenvolvimento segue um pipeline estruturado em **4 fases principais**:
 │  ├─ Gerar PRD baseado na User Story                        │
 │  ├─ Definir API Contracts (endpoints)                      │
 │  ├─ Diagramas e fluxos de dados                            │
-│  └─ Salvar em: docs/prd/BKI-XXXX/USYYY/PRD-*.md            │
+│  └─ Salvar em: docs/product-requirements/PRD-XXXX/USYYY/   │
 └────────────────────┬────────────────────────────────────────┘
                      │
 ┌────────────────────▼────────────────────────────────────────┐
@@ -77,16 +87,21 @@ O projeto utiliza **hierarquia de arquivos de instruções** que guiam o Copilot
 **Escopo**: Todas as operações no monorepo
 
 **Contém**:
-- Glossário de termos (BKI, US, PRD, etc)
+- Glossário de termos (PRD Bloco, US, PRD, RF, EP, DTO, FRONT)
 - Fluxo de desenvolvimento padrão
 - Convenções gerais (commits, branches)
+- Regras de segurança (migrations, solution naming)
 - Referência de agentes disponíveis
 
 **Exemplo**:
 ```markdown
-- **BKI (Bloco de Conhecimento Integrado)**: Agrupamento lógico de User Stories
-- **US (User Story)**: Item de backlog com funcionalidade
-- **PRD (Product Requirements Document)**: Especificação técnica detalhada
+- **PRD (Bloco de Conhecimento Integrado)**: Agrupamento lógico de User Stories relacionadas (ex: PRD-0001-gestao-vendedores)
+- **US (User Story)**: Item de backlog que descreve funcionalidade do ponto de vista do usuário (ex: US001)
+- **PRD (Product Requirements Document)**: Documento técnico detalhado de uma User Story
+- **RF (Requisito Funcional)**: Funcionalidade específica a ser implementada (mapeado no PRD)
+- **EP (Endpoint)**: Rota da API RESTful (ex: EP-001: POST /api/vendedores)
+- **DTO (Data Transfer Object)**: Objeto de transferência de dados entre camadas (Request/Response)
+- **FRONT**: Item de implementação frontend (mapeado no PRD)
 ```
 
 ### 🔙 Instruções Backend
@@ -99,14 +114,16 @@ src/backend/.github/copilot-instructions.md
 ```
 src/backend/.github/instructions/
 ├── 01-architecture.md       (Clean Architecture principles)
-├── 02-patterns.md           (Templates de código: Entity, Handler, Validator)
+├── 02-patterns.md           (Templates de código: Entity, Handler, Validator, BaseApiController)
 ├── 03-conventions.md        (Nomenclatura em português, C# 12)
 ├── 04-folder-structure.md   (Organização de pastas)
-├── 05-database.md           (EF Core, migrations)
+├── 05-database.md           (EF Core, migrations com aprovação obrigatória)
 ├── 06-testing.md            (Unit tests com xunit)
-├── 07-setup.md              (Criar solution do zero)
+├── 07-setup.md              (Criar solution com <SolutionName> dinâmico)
 └── 08-legacy-migration.md   (Migrar padrões legados)
 ```
+
+**Nota**: Todos os templates usam `<SolutionName>` como placeholder para nomes de projeto dinâmicos.
 
 ### 🎨 Instruções Frontend
 ```
@@ -219,6 +236,11 @@ Base: docs/stories/US001-cadastro-usuario.md
 **Arquivo**: `.github/prompts/backend.writer.prompt.md`
 
 **Responsabilidade**: Implementar backend completo de forma automatizada
+
+**⚠️ Regras de Segurança**:
+- NUNCA executa `dotnet ef database update` ou comandos DDL sem confirmação
+- SEMPRE solicita nome da solution antes de criar projetos
+- Gera apenas código (.cs) e migrations, sem aplicar ao banco
 
 **Entrada**: PRD técnico
 
@@ -442,13 +464,14 @@ public class CriarUsuarioHandlerTests
 Caminho: docs/stories/US001-cadastro-usuario.md
 ```
 
-**Resultado**: `docs/prd/BKI-0001-gestao-usuarios/US001/PRD-US001-cadastro-usuario-2025-11-25.md`
+**Resultado**: `docs/product-requirements/PRD-0001-gestao-usuarios/US001/PRD-US001-cadastro-usuario-2025-11-25.md`
 
 Arquivo contém:
-- Tabela de API Contracts
+- Tabela de API Contracts (sem versionamento de API)
 - Sequência de implementação (5 tasks)
 - DTOs detalhados
 - Fluxograma de criação
+- Implementation Status por camada
 
 ---
 
@@ -486,8 +509,10 @@ Implemente: docs/prd/BKI-0001-gestao-usuarios/US001/PRD-US001-cadastro-usuario-2
 
 ✅ BUILD SUCCESS
 ├─ 0 erros, 8 avisos (package version resolution)
-├─ Migration criada e pronta
+├─ Migration criada (NÃO aplicada - requer confirmação do usuário)
 ```
+
+**⚠️ Importante**: O agente NUNCA executa `dotnet ef database update`. Você deve executar manualmente após revisar.
 
 ---
 
@@ -530,16 +555,18 @@ ia-driven-starter/
 │
 ├── 📂 docs/
 │   ├── stories/
-│   │   ├── US001-cadastro-usuario.md
-│   │   └── US002-autenticacao-usuario.md
-│   ├── prd/
-│   │   └── BKI-0001-gestao-usuarios/
-│   │       ├── US001/
-│   │       │   └── PRD-US001-cadastro-usuario-2025-11-25.md
-│   │       └── US002/
-│   │           └── PRD-US002-autenticacao-usuario-2025-11-27.md
-│   └── implementation/
-│       └── US001-IMPLEMENTATION-COMPLETE.md
+│   │   ├── US001-gestao-tarefas/
+│   │   │   ├── US001.md (épico)
+│   │   │   ├── US001-01-listar-tarefas.md
+│   │   │   ├── US001-02-adicionar-tarefa.md
+│   │   │   ├── US001-03-editar-tarefa.md
+│   │   │   ├── US001-04-excluir-tarefa.md
+│   │   │   └── US001-05-marcar-concluida.md
+│   │   └── US002-registro-usuario.md
+│   └── product-requirements/
+│       └── PRD-0001-registro-usuario/
+│           └── US002/
+│               └── PRD-US002-registro-usuario-2025-12-11.md
 │
 ├── 📂 src/
 │   ├── backend/                          ← ASP.NET Core
@@ -669,9 +696,10 @@ hotfix/security-patch
 - **Global Instructions**: `.github/copilot-instructions.md`
 - **Backend Instructions**: `src/backend/.github/copilot-instructions.md`
 - **Architecture Guide**: `src/backend/.github/instructions/01-architecture.md`
-- **Pattern Templates**: `src/backend/.github/instructions/02-patterns.md`
-- **Example Story**: `docs/stories/US001-cadastro-usuario.md`
-- **Example PRD**: `docs/prd/BKI-0001-gestao-usuarios/US001/PRD-US001-*.md`
+- **Pattern Templates**: `src/backend/.github/instructions/02-patterns.md` (inclui BaseApiController)
+- **Example Story (Epic)**: `docs/stories/US001-gestao-tarefas/US001.md`
+- **Example Story (Feature)**: `docs/stories/US002-registro-usuario.md`
+- **Example PRD**: `docs/product-requirements/PRD-0001-registro-usuario/US002/PRD-US002-*.md`
 
 ---
 
@@ -682,11 +710,14 @@ hotfix/security-patch
 3. **Use padrões**: Siga as templates definidas nos prompts
 4. **Teste incrementalmente**: Construa feature por feature, não tudo de uma vez
 5. **Documente**: Mantenha stories e PRDs atualizados
-6. **Valide commits**: Antes de fazer merge, verifique:
+6. **⚠️ Segurança**: Sempre revise migrations antes de aplicar ao banco
+7. **⚠️ Nomenclatura**: Informe o nome da solution quando criar novos projetos
+8. **Valide commits**: Antes de fazer merge, verifique:
    - Build passa (`dotnet build`)
    - Sem warnings críticos
-   - Migrations aplicadas
+   - Migrations revisadas e aplicadas manualmente (`dotnet ef database update`)
    - Testes passam (`dotnet test`)
+   - Nenhum comando `dotnet ef` foi executado automaticamente
 
 ---
 
