@@ -499,7 +499,7 @@ Implemente: docs/prd/BKI-0001-gestao-usuarios/US001/PRD-US001-cadastro-usuario-2
 PRD: docs/prd/BKI-0001-gestao-usuarios/US001/PRD-US001-cadastro-usuario-2025-11-25.md
 ```
 
-**Resultado**: `tests/AgenteViagem.UnitTests/`
+**Resultado**: `tests/{{ProjectBase}}.UnitTests/`
 
 ```
 ✅ Domain Tests
@@ -554,11 +554,11 @@ ia-driven-starter/
 │   │   │       ├── 06-testing.md
 │   │   │       ├── 07-setup.md
 │   │   │       └── 08-legacy-migration.md
-│   │   ├── AgenteViagem.sln
-│   │   ├── AgenteViagem.Domain/
-│   │   ├── AgenteViagem.Application/
-│   │   ├── AgenteViagem.Infrastructure/
-│   │   └── AgenteViagem.API/
+│   │   ├── {{ProjectBase}}.sln
+│   │   ├── {{ProjectBase}}.Domain/
+│   │   ├── {{ProjectBase}}.Application/
+│   │   ├── {{ProjectBase}}.Infrastructure/
+│   │   └── {{ProjectBase}}.API/
 │   │
 │   └── frontend/                         ← React + TypeScript
 │       ├── .github/
@@ -568,7 +568,7 @@ ia-driven-starter/
 │       └── package.json
 │
 └── 📂 tests/
-    └── AgenteViagem.UnitTests/
+    └── {{ProjectBase}}.UnitTests/
         ├── Domain/
         └── Application/
 

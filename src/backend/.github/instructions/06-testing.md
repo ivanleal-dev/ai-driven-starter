@@ -30,7 +30,7 @@
 ### Projeto de Testes
 
 ```xml
-<!-- tests/AgenteViagem.UnitTests/AgenteViagem.UnitTests.csproj -->
+<!-- tests/{{ProjectBase}}.UnitTests/{{ProjectBase}}.UnitTests.csproj -->
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
@@ -51,8 +51,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\backend\AgenteViagem.Domain\AgenteViagem.Domain.csproj" />
-        <ProjectReference Include="..\..\src\backend\AgenteViagem.Application\AgenteViagem.Application.csproj" />
+        <ProjectReference Include="..\..\src\backend\{{ProjectBase}}.Domain\{{ProjectBase}}.Domain.csproj" />
+        <ProjectReference Include="..\..\src\backend\{{ProjectBase}}.Application\{{ProjectBase}}.Application.csproj" />
     </ItemGroup>
 
 </Project>
@@ -62,8 +62,8 @@
 
 ```
 tests/
-└── AgenteViagem.UnitTests/
-    ├── AgenteViagem.UnitTests.csproj
+└── {{ProjectBase}}.UnitTests/
+    ├── {{ProjectBase}}.UnitTests.csproj
     ├── GlobalUsings.cs
     ├── Domain/
     │   ├── Entities/
@@ -94,8 +94,8 @@ tests/
 ### Exemplo: Usuario Entity Tests
 
 ```csharp
-// tests/AgenteViagem.UnitTests/Domain/Entities/UsuarioTests.cs
-namespace AgenteViagem.UnitTests.Domain.Entities;
+// tests/{{ProjectBase}}.UnitTests/Domain/Entities/UsuarioTests.cs
+namespace {{ProjectBase}}.UnitTests.Domain.Entities;
 
 public sealed class UsuarioTests
 {
@@ -205,8 +205,8 @@ public sealed class UsuarioTests
 ### Exemplo: CriarUsuarioHandler Tests
 
 ```csharp
-// tests/AgenteViagem.UnitTests/Application/UseCases/Usuario/CriarUsuarioHandlerTests.cs
-namespace AgenteViagem.UnitTests.Application.UseCases.Usuario;
+// tests/{{ProjectBase}}.UnitTests/Application/UseCases/Usuario/CriarUsuarioHandlerTests.cs
+namespace {{ProjectBase}}.UnitTests.Application.UseCases.Usuario;
 
 public sealed class CriarUsuarioHandlerTests
 {
@@ -383,8 +383,8 @@ public sealed class CriarUsuarioHandlerTests
 ## 🔍 Validator Tests
 
 ```csharp
-// tests/AgenteViagem.UnitTests/Application/Validators/CriarUsuarioRequestValidatorTests.cs
-namespace AgenteViagem.UnitTests.Application.Validators;
+// tests/{{ProjectBase}}.UnitTests/Application/Validators/CriarUsuarioRequestValidatorTests.cs
+namespace {{ProjectBase}}.UnitTests.Application.Validators;
 
 public sealed class CriarUsuarioRequestValidatorTests
 {
@@ -489,8 +489,8 @@ public sealed class CriarUsuarioRequestValidatorTests
 ## 🏭 Test Data Builder
 
 ```csharp
-// tests/AgenteViagem.UnitTests/Helpers/TestDataBuilder.cs
-namespace AgenteViagem.UnitTests.Helpers;
+// tests/{{ProjectBase}}.UnitTests/Helpers/TestDataBuilder.cs
+namespace {{ProjectBase}}.UnitTests.Helpers;
 
 public sealed class UsuarioTestDataBuilder
 {

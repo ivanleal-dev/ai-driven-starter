@@ -72,7 +72,7 @@ applyTo: 'src/backend/**'
 
 ## 🎯 Quick Reference
 
-### Projeto: AgenteViagem
+### Projeto: {{ProjectBase}}
 
 **Stack:**
 - .NET 10, C# 12
@@ -104,7 +104,7 @@ API                (Controllers, HTTP routing)
 
 ### 1. **Planejar com PRD**
 ```
-Ler: /docs/prd/BKI-XXXX/USYYY/PRD-*.md
+Ler: /docs/prd/PRD-XXXX/USYYY/PRD-*.md
 Identificar: entidades, campos, regras, endpoints
 ```
 
@@ -164,23 +164,23 @@ Refs: #USXXX"
 
 ```bash
 # Build
-dotnet build src/backend/AgenteViagem.sln -c Debug
+dotnet build src/backend/{{ProjectBase}}.sln -c Debug
 
 # Test
-dotnet test tests/AgenteViagem.UnitTests/
+dotnet test tests/{{ProjectBase}}.UnitTests/
 
 # Database Update
 dotnet ef database update \
-    --project src/backend/AgenteViagem.Infrastructure \
-    --startup-project src/backend/AgenteViagem.API
+    --project src/backend/{{ProjectBase}}.Infrastructure \
+    --startup-project src/backend/{{ProjectBase}}.API
 
 # Create Migration
 dotnet ef migrations add NomeMigration \
-    --project src/backend/AgenteViagem.Infrastructure \
-    --startup-project src/backend/AgenteViagem.API
+    --project src/backend/{{ProjectBase}}.Infrastructure \
+    --startup-project src/backend/{{ProjectBase}}.API
 
 # Run API
-dotnet run --project src/backend/AgenteViagem.API
+dotnet run --project src/backend/{{ProjectBase}}.API
 ```
 
 ---

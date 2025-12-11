@@ -4,14 +4,14 @@
 
 ```
 src/backend/
-├── AgenteViagem.sln
+├── {{ProjectBase}}.sln
 ├── README.md
 ├── README_DEVELOPMENT.md
 ├── .github/
 │   └── instructions/  ← Você está aqui
 │
-├── AgenteViagem.Domain/
-│   ├── AgenteViagem.Domain.csproj
+├── {{ProjectBase}}.Domain/
+│   ├── {{ProjectBase}}.Domain.csproj
 │   ├── Common/
 │   │   ├── BaseEntity.cs
 │   │   ├── DomainException.cs
@@ -37,8 +37,8 @@ src/backend/
 │       ├── IPasswordHasher.cs
 │       └── INotificationService.cs
 │
-├── AgenteViagem.Application/
-│   ├── AgenteViagem.Application.csproj
+├── {{ProjectBase}}.Application/
+│   ├── {{ProjectBase}}.Application.csproj
 │   ├── Common/
 │   │   ├── Results/
 │   │   │   ├── Result.cs
@@ -92,8 +92,8 @@ src/backend/
 │   │   └── ServiceCollectionExtensions.cs
 │   └── GlobalUsings.cs
 │
-├── AgenteViagem.Infrastructure/
-│   ├── AgenteViagem.Infrastructure.csproj
+├── {{ProjectBase}}.Infrastructure/
+│   ├── {{ProjectBase}}.Infrastructure.csproj
 │   ├── Data/
 │   │   ├── AppDbContext.cs
 │   │   ├── UnitOfWork.cs
@@ -119,8 +119,8 @@ src/backend/
 │   │   └── ServiceCollectionExtensions.cs
 │   └── GlobalUsings.cs
 │
-└── AgenteViagem.API/
-    ├── AgenteViagem.API.csproj
+└── {{ProjectBase}}.API/
+    ├── {{ProjectBase}}.API.csproj
     ├── appsettings.json
     ├── appsettings.Development.json
     ├── Program.cs

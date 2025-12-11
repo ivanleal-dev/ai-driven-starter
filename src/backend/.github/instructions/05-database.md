@@ -161,18 +161,18 @@ public sealed class FailedLoginAttemptsConfiguration
 
 ```powershell
 # No diretório do projeto Infrastructure
-cd src/backend/AgenteViagem.Infrastructure
+cd src/backend/{{ProjectBase}}.Infrastructure
 
 # Criar nova migration
 dotnet ef migrations add {NomeMigration} \
-    --project AgenteViagem.Infrastructure.csproj \
-    --startup-project ..\AgenteViagem.API\AgenteViagem.API.csproj \
+    --project {{ProjectBase}}.Infrastructure.csproj \
+    --startup-project ..\{{ProjectBase}}.API\{{ProjectBase}}.API.csproj \
     --context AppDbContext
 
 # Exemplo:
 dotnet ef migrations add Initial_Setup \
-    --project AgenteViagem.Infrastructure.csproj \
-    --startup-project ..\AgenteViagem.API\AgenteViagem.API.csproj
+    --project {{ProjectBase}}.Infrastructure.csproj \
+    --startup-project ..\{{ProjectBase}}.API\{{ProjectBase}}.API.csproj
 ```
 
 ### Aplicar Migration
@@ -180,13 +180,13 @@ dotnet ef migrations add Initial_Setup \
 ```powershell
 # Update database
 dotnet ef database update \
-    --project AgenteViagem.Infrastructure.csproj \
-    --startup-project ..\AgenteViagem.API\AgenteViagem.API.csproj
+    --project {{ProjectBase}}.Infrastructure.csproj \
+    --startup-project ..\{{ProjectBase}}.API\{{ProjectBase}}.API.csproj
 
 # Com connection string específica
 dotnet ef database update \
-    --project AgenteViagem.Infrastructure.csproj \
-    --startup-project ..\AgenteViagem.API\AgenteViagem.API.csproj \
+    --project {{ProjectBase}}.Infrastructure.csproj \
+    --startup-project ..\{{ProjectBase}}.API\{{ProjectBase}}.API.csproj \
     --connection "User ID=postgres;Password=postgres;Server=localhost;Port=5432;Database=agente_viagem;Integrated Security=false;"
 ```
 

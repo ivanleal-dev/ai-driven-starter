@@ -28,7 +28,7 @@ Implementar código backend completo baseado em PRD de User Stories, seguindo Cl
 ### 2. Infrastructure Instructions (READ IN ORDER)
 1. `.github/copilot-instructions.md`
 2. `/src/backend/.github/copilot-instructions.md`
-3. Extract solution name (ex: AgenteViagem)
+3. Extract solution name (ex: {{ProjectBase}})
 
 ---
 
