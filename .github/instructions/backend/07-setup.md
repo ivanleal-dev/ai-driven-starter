@@ -16,7 +16,7 @@ dotnet new sln --name <SolutionName>
 
 ### 2. Criar Projetos Class Library
 
-> 📋 **Framework Target**: [../../backend-requirements.md](../../backend-requirements.md)
+> 📋 **TargetFramework & Versões**: [../../09-stack.md](../../09-stack.md)
 
 ```powershell
 # 1. Domain (Núcleo - sem dependências externas)
@@ -82,7 +82,7 @@ dotnet add <SolutionName>.API/<SolutionName>.API.csproj \
 
 ## 📦 Instalar NuGet Packages
 
-> 📋 **Fonte Única de Verdade**: [../../backend-requirements.md](../../backend-requirements.md)
+> 📋 **Fonte Única de Verdade**: [../../09-stack.md](../../09-stack.md)
 > 
 > ⚠️ **Importante**: Use SEMPRE as versões específicas definidas no arquivo de requisitos técnicos
 
@@ -91,11 +91,11 @@ dotnet add <SolutionName>.API/<SolutionName>.API.csproj \
 ```powershell
 # Domain: SEM DEPENDÊNCIAS (manter puro)
 
-# Consulte backend-requirements.md para comandos de instalação específicos
+# Consulte 09-stack.md para comandos de instalação específicos
 # Todas as versões e comandos estão definidos no arquivo de requisitos técnicos
 ```
 
-> 📋 Para **lista completa, versões atualizadas e configurações**, consulte: [../../backend-requirements.md](../../backend-requirements.md)
+> 📋 Para **lista completa, versões atualizadas e configurações**, consulte: [../../09-stack.md](../../09-stack.md)
 
 ---
 
@@ -202,8 +202,8 @@ cd ..
 ---
 
 ## 🔧 Arquivo .csproj Padrão
-
-> 📋 **TargetFramework & Versões**: [../../backend-requirements.md](../../backend-requirements.md)
+ 
+> 📋 **TargetFramework & Versões**: [../../09-stack.md](../../09-stack.md)
 
 ### Domain.csproj
 
@@ -232,7 +232,7 @@ cd ..
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
-    <!-- Ver versões específicas em backend-requirements.md -->
+    <!-- Ver versões específicas em 09-stack.md -->
     <ItemGroup>
         <PackageReference Include="FluentValidation" Version="{{Version}}" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="{{Version}}" />
@@ -257,7 +257,7 @@ cd ..
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
-    <!-- Ver versões específicas em backend-requirements.md -->
+    <!-- Ver versões específicas em 09-stack.md -->
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="{{Version}}" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="{{Version}}">
@@ -292,7 +292,7 @@ cd ..
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
-    <!-- Ver versões específicas em backend-requirements.md -->
+    <!-- Ver versões específicas em 09-stack.md -->
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="{{Version}}" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="{{Version}}" />

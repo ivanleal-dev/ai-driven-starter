@@ -1,6 +1,6 @@
 # 🗄️ Entity Framework Core & Banco de Dados
 
-> 📋 **Configurações de Banco & Dependências**: [../../backend-requirements.md](../../backend-requirements.md)
+> 📋 **Configurações de Banco & Dependências**: [../../09-stack.md](../../09-stack.md)
 
 ## 📚 Setup Inicial
 

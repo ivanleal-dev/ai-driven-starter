@@ -1,6 +1,6 @@
 # GitHub Copilot Custom Agents
 
-> 📋 **Requisições Técnicas**: [backend-requirements.md](backend-requirements.md)
+> 📋 **Requisições Técnicas**: [09-stack.md](09-stack.md)
 
 ## Fluxo de Desenvolvimento Padrão
 
@@ -74,7 +74,7 @@ FrontendStatus: planned|partial|complete
 ```
 
 ### Reference
-Ver prompt completo em: `.github/prompts/spec-writer.prompt.md`
+Ver skill completa em: `.github/skills/spec-writer/SKILL.md`
 
 ### Examples
 ```
@@ -105,7 +105,7 @@ Especialista em implementação backend completa seguindo Clean Architecture, Do
 
 ### Instructions
 Ao implementar backend baseado em Feature Spec:
-1. 📋 **Consultar SEMPRE**: [backend-requirements.md](backend-requirements.md) para versões e dependências
+1. 📋 **Consultar SEMPRE**: [09-stack.md](09-stack.md) para versões e dependências
 2. Seguir Clean Architecture: Domain → Application (UseCases/Handlers) → Infrastructure → API
 2. **Vertical Slices**: cada caso de uso em pasta própria (Create, Update, GetById, etc)
 3. **Handlers** isolados por operação (sem Services centrais)
@@ -120,7 +120,7 @@ Ao implementar backend baseado em Feature Spec:
 12. Seguir estrutura definida na Feature Spec
 
 ### Reference
-Ver prompt completo em: `.github/prompts/backend-api.prompt.md`
+Ver skill completa em: `.github/skills/backend-develop/SKILL.md`
 
 ### Examples
 ```
@@ -159,7 +159,7 @@ Ao criar testes unitários:
 8. NÃO criar testes de Infra, API ou integração
 
 ### Reference
-Ver prompt completo em: `.github/prompts/unittest-writer.prompt.md`
+Ver skill completa em: `.github/skills/backend-develop/SKILL.md`
 
 ### Examples
 ```

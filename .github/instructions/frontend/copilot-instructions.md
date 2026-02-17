@@ -12,7 +12,7 @@ applyTo: 'src/frontend/**'
 
 - **NÃO criar nem atualizar `README.md`** para “explicar a estrutura do frontend” durante implementações.
 - A **fonte de verdade** da estrutura/arquitetura é a pasta `.github/rules/frontend/` (principalmente `04-folder-structure.md`).
-- O prompt de frontend (arquivo `.github/prompts/frontend-dev.prompt.md`) deve **somente** criar/alterar arquivos de código necessários à feature/ajuste solicitado; documentação estrutural é considerada fora de escopo (a menos que o usuário peça explicitamente).
+- O prompt de frontend (arquivo `.github/skills/frontend-develop/SKILL.md`) deve **somente** criar/alterar arquivos de código necessários à feature/ajuste solicitado; documentação estrutural é considerada fora de escopo (a menos que o usuário peça explicitamente).
 
 **Leia nesta ordem:**
 

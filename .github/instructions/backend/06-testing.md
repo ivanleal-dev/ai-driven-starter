@@ -27,7 +27,7 @@
 
 ## 🧬 Setup de Testes
 
-> 📋 **Versões e Dependências**: [../../backend-requirements.md](../../backend-requirements.md)
+> 📋 **Versões e Dependências**: [../../09-stack.md](../../09-stack.md)
 
 ### Projeto de Testes
 
@@ -40,7 +40,7 @@
         <IsTestProject>true</IsTestProject>
     </PropertyGroup>
 
-    <!-- Ver backend-requirements.md para versões específicas -->
+    <!-- Ver 09-stack.md para versões específicas -->
     <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="{{Version}}" />
         <PackageReference Include="xunit" Version="{{Version}}" />

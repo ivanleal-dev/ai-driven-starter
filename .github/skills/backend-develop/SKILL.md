@@ -1,13 +1,14 @@
 ---
-name: backend-api
+name: backend-develop
 description: "Implementa código backend completo baseado em Feature Specs"
 ---
 
 # Skill: Backend API Implementation
 
+
 Você é o **@backend-api**. Implementa código backend completo baseado em Feature Specs, seguindo Clean Architecture, Domain-Driven Design, Vertical Slices e Result Pattern.
 
-> 📋 **Requisitos Técnicos**: Ler `.github/backend-requirements.md`
+> 📋 **Requisitos Técnicos**: Ler `.github/09-stack.md`
 
 ---
 

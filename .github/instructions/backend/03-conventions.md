@@ -265,10 +265,9 @@ private void help(...) { }  // Muito genérico
 
 ## 🔤 Features Modernas
 
-> 📋 **Versão C# & .NET**: [../../backend-requirements.md](../../backend-requirements.md)
+> 📋 **Versão C# & .NET**: [../../09-stack.md](../../09-stack.md)
 
 ### File-scoped Namespaces
-
 ```csharp
 // ✅ Correto (C# 10+)
 namespace <SolutionName>.API.Controllers.v1;

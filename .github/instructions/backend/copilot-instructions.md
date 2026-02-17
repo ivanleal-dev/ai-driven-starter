@@ -34,7 +34,7 @@ applyTo: 'src/backend/**'
 ### 3. **Nomenclatura & Convenções**
 📖 Ver: `./03-conventions.md`
 - Tudo em **PORTUGUÊS**: Handlers, Entities, Requests, Responses
-- 📋 **Stack & Versões**: [../../backend-requirements.md](../../backend-requirements.md)
+- 📋 **Stack & Versões**: [stack.md](stack.md)
 - PascalCase (tipos), camelCase (variáveis)
 - Global Usings
 
@@ -63,7 +63,7 @@ applyTo: 'src/backend/**'
 ### 7. **Setup Inicial (Criar Solução)**
 📖 Ver: `./07-setup.md`
 - Criar solution + 4 projetos
-- 📋 **Dependências**: [../../backend-requirements.md](../../backend-requirements.md) (versões atualizadas)
+- 📋 **Dependências**: [stack.md](stack.md) (versões atualizadas)
 - Configurar pastas
 
 ### 8. **Migração de Padrões Legados**
@@ -81,7 +81,7 @@ applyTo: 'src/backend/**'
 ### Projeto: {{ProjectBase}}
 
 **Stack:**
-> 📋 [../../backend-requirements.md](../../backend-requirements.md)
+> 📋 [stack.md](stack.md)
 
 - ASP.NET Core (Controllers)
 - Entity Framework Core + PostgreSQL
@@ -249,6 +249,6 @@ dotnet run --project src/backend/{{ProjectBase}}.API
 
 ---
 
-> 📋 **Stack Completo**: [../../backend-requirements.md](../../backend-requirements.md)
+> 📋 **Stack Completo**: [stack.md](stack.md)
 
 **Última atualização:** 2026-02-10
