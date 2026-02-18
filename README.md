@@ -38,7 +38,7 @@ ai-driven-starter/
 
 ## 🚀 Stack
 
-- **Backend**: Node.js, TypeScript, arquitetura em camadas (Domain → Application → Infrastructure)
+- **Backend**: Asp.net Core, arquitetura em camadas (Domain → Application → Infrastructure)
 - **Frontend**: React/TypeScript com componentes reutilizáveis
 - **API**: RESTful com autenticação JWT
 - **Versionamento**: Conventional Commits
