@@ -1,6 +1,6 @@
 # 🏛️ Arquitetura Frontend - Vertical Slice Architecture
 
-> 📋 **Stack & Versões**: [../../frontend-requirements.md](../../frontend-requirements.md)
+> 📋 **Stack & Versões**: [09-stack.md](09-stack.md)
 
 ## 📚 Visão Geral
 

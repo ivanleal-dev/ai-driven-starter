@@ -66,7 +66,7 @@ applyTo: 'src/frontend/**'
 ### Projeto: React + Vite + TypeScript + Vertical Slice
 
 **Stack:**
-> 📋 [../../frontend-requirements.md](../../frontend-requirements.md)
+> 📋 [09-stack.md](09-stack.md)
 
 - **React 18** + **Vite 5** + **TypeScript 5.4**
 - **React Router DOM 6** (roteamento)

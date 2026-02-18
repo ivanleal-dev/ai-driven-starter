@@ -16,7 +16,7 @@ dotnet new sln --name <SolutionName>
 
 ### 2. Criar Projetos Class Library
 
-> 📋 **TargetFramework & Versões**: [../../09-stack.md](../../09-stack.md)
+> 📋 **TargetFramework & Versões**: [09-stack.md](./09-stack.md)
 
 ```powershell
 # 1. Domain (Núcleo - sem dependências externas)

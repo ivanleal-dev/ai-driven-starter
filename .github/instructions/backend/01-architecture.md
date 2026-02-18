@@ -1,6 +1,6 @@
 # 🏛️ Clean Architecture - Visão Geral
 
-> 📋 **Stack & Versões**: [../../09-stack.md](../../09-stack.md)
+> 📋 **Stack & Versões**: [09-stack.md](./09-stack.md)
 ## 📚 Visão Geral
 
 Backend desenvolvido seguindo **Clean Architecture**, **SOLID** e **Domain-Driven Design (DDD)**.

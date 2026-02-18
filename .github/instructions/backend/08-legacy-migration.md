@@ -1,6 +1,6 @@
 # 🔄 Migração de Padrões Legados
 
-> 📋 **Stack Atual**: [../../09-stack.md](../../09-stack.md)
+> 📋 **Stack Atual**: [09-stack.md](./09-stack.md)
 
 ## 📋 Padrões Antigos → Novos
 

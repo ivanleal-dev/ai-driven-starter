@@ -1,6 +1,6 @@
 # 🗄️ Entity Framework Core & Banco de Dados
 
-> 📋 **Configurações de Banco & Dependências**: [../../09-stack.md](../../09-stack.md)
+> 📋 **Configurações de Banco & Dependências**: [09-stack.md](./09-stack.md)
 
 ## 📚 Setup Inicial
 
@@ -497,40 +497,22 @@ public async Task<Result<ResultadoPaginado<UsuarioResponse>>> HandleAsync(
 
 ---
 
-## 🛠️ Migração: Removendo UnitOfWork Incorreto
-
-Se você já tem código com `IUnitOfWork` na Application, siga estes passos:
-
-### 1. Remover arquivos desnecessários
-```bash
-# Remover interface da Application (violava Clean Architecture)
-rm src/backend/<Solution>.Application/Common/Interfaces/IUnitOfWork.cs
-
-# Remover implementação da Infrastructure (não é mais necessária)
-rm src/backend/<Solution>.Infrastructure/Data/UnitOfWork.cs
-```
-
 ### 2. Atualizar Handlers
 ```diff
   public class CriarUsuarioHandler
   {
       private readonly IUsuarioRepository _repository;
--     private readonly IUnitOfWork _unitOfWork;
 
       public CriarUsuarioHandler(
--         IUsuarioRepository repository,
--         IUnitOfWork unitOfWork)
 +         IUsuarioRepository repository)
       {
           _repository = repository;
--         _unitOfWork = unitOfWork;
       }
 
       public async Task<Result<UsuarioDto>> HandleAsync(...)
       {
           var usuario = Usuario.Criar(...);
           await _repository.AdicionarAsync(usuario, ct);
--         await _unitOfWork.CommitAsync(ct);
           return Result.Success(...);
       }
   }
@@ -539,8 +521,7 @@ rm src/backend/<Solution>.Infrastructure/Data/UnitOfWork.cs
 ### 3. Atualizar DI Registration
 ```diff
   // API/Program.cs
-- builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-+ // Repositórios já registrados individualmente
+  // Repositórios já registrados individualmente
 ```
 
 ### 4. Atualizar Testes
@@ -548,10 +529,8 @@ rm src/backend/<Solution>.Infrastructure/Data/UnitOfWork.cs
   public class CriarUsuarioHandlerTests
   {
       private readonly Mock<IUsuarioRepository> _repositoryMock = new();
--     private readonly Mock<IUnitOfWork> _unitOfWorkMock = new();
 
       private CriarUsuarioHandler CreateHandler()
--         => new(_repositoryMock.Object, _unitOfWorkMock.Object);
 +         => new(_repositoryMock.Object);
   }
 ```

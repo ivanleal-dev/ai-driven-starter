@@ -27,7 +27,7 @@
 
 ## 🧬 Setup de Testes
 
-> 📋 **Versões e Dependências**: [../../09-stack.md](../../09-stack.md)
+> 📋 **Versões e Dependências**: [09-stack.md](./09-stack.md)
 
 ### Projeto de Testes
 

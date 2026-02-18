@@ -9,10 +9,10 @@ applyTo: '**'
 | Caminho | Stack | Status |
 |---------|-------|--------|
 | `/src/backend` | [📋 Ver requisitos técnicos](09-stack.md) | ✅ Ativo |
-| `/src/frontend` | [📋 Ver requisitos técnicos](frontend-requirements.md) | ✅ Ativo |
+| `/src/frontend` | [📋 Ver requisitos técnicos](frontend/09-stack.md) | ✅ Ativo |
 
 > 🎯 **Stack Backend**: Todas as versões e dependências definidas em [09-stack.md](09-stack.md)
-> 🎯 **Stack Frontend**: Todas as versões e dependências definidas em [frontend-requirements.md](frontend-requirements.md)
+> 🎯 **Stack Frontend**: Todas as versões e dependências definidas em [frontend/09-stack.md](frontend/09-stack.md)
 
 ---
 
@@ -57,7 +57,7 @@ applyTo: '**'
 | Contexto | Arquivo |
 |----------|---------|
 | **📋 Stack & Versões Backend** | [09-stack.md](09-stack.md) |
-| **📋 Stack & Versões Frontend** | [frontend-requirements.md](frontend-requirements.md) |
+| **📋 Stack & Versões Frontend** | [frontend/09-stack.md](frontend/09-stack.md) |
 | **📂 Estrutura Backend** | `.github/rules/backend/04-folder-structure.md` |
 | **📂 Estrutura Frontend** | `.github/rules/frontend/04-folder-structure.md` |
 | **Agents e Prompts** | `.github/agent.md` |
