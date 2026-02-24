@@ -11,7 +11,7 @@ applyTo: '**'
 | `/src/backend` | [📋 Ver requisitos técnicos](09-stack.md) | ✅ Ativo |
 | `/src/frontend` | [📋 Ver requisitos técnicos](frontend/09-stack.md) | ✅ Ativo |
 
-> 🎯 **Stack Backend**: Todas as versões e dependências definidas em [09-stack.md](09-stack.md)
+> 🎯 **Stack Backend**: Todas as versões e dependências definidas em [backend/09-stack.md](backend/09-stack.md)
 > 🎯 **Stack Frontend**: Todas as versões e dependências definidas em [frontend/09-stack.md](frontend/09-stack.md)
 
 ---
@@ -56,15 +56,15 @@ applyTo: '**'
 
 | Contexto | Arquivo |
 |----------|---------|
-| **📋 Stack & Versões Backend** | [09-stack.md](09-stack.md) |
+| **📋 Stack & Versões Backend** | [backend/09-stack.md](backend/09-stack.md) |
 | **📋 Stack & Versões Frontend** | [frontend/09-stack.md](frontend/09-stack.md) |
-| **📂 Estrutura Backend** | `.github/rules/backend/04-folder-structure.md` |
-| **📂 Estrutura Frontend** | `.github/rules/frontend/04-folder-structure.md` |
+| **📂 Estrutura Backend** | `.github/backend/04-folder-structure.md` |
+| **📂 Estrutura Frontend** | `.github/frontend/04-folder-structure.md` |
 | **Agents e Prompts** | `.github/agent.md` |
-| **Segurança Backend** | `.github/rules/backend/00-security.md` |
-| **Segurança Frontend** | `.github/rules/frontend/00-security.md` |
-| **Backend (índice)** | `.github/rules/backend/copilot-instructions.md` |
-| **Frontend (índice)** | `.github/rules/frontend/copilot-instructions.md` |
+| **Segurança Backend** | `.github/backend/00-security.md` |
+| **Segurança Frontend** | `.github/frontend/00-security.md` |
+| **Backend (índice)** | `.github/backend/copilot-instructions.md` |
+| **Frontend (índice)** | `.github/frontend/copilot-instructions.md` |
 
 > ⚠️ **Regra**: Antes de criar código, ler os arquivos de rules na ordem indicada.
 > ⚠️ **Obrigatório**: Sempre seguir estrutura definida em `04-folder-structure.md`

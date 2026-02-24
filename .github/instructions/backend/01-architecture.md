@@ -182,7 +182,6 @@ Application/
 - ✅ Configurações EF (`IEntityTypeConfiguration`)
 - ✅ Migrations
 - ✅ Serviços externos (Cache, Email, Storage)
-- ✅ UnitOfWork
 
 **NÃO pode**:
 - ❌ Conter lógica de negócio
@@ -300,7 +299,7 @@ public sealed class UsuariosController(CriarUsuarioHandler criar)
    b. Se inválido → Result.Failure(validationError)
    c. Se válido → Usuario.Criar(email) [Domain invariants]
    d. _repository.AdicionarAsync(usuario)
-   e. _unitOfWork.CommitAsync() [Transação]
+   e. _context.SaveChangesAsync() [Transação]
    f. Retornar Result.Success(usuarioResponse)
 
 4. [Controller] Mapear resultado

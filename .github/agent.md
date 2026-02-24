@@ -1,6 +1,7 @@
 # GitHub Copilot Custom Agents
 
-> 📋 **Requisições Técnicas**: [09-stack.md](09-stack.md)
+> 📋 **Requisições Técnicas para o backend apenas**: [09-stack.md](./instructions/backend/09-stack.md)
+> 📋 **Requisições Técnicas para o frontend apenas**: [09-stack.md](./instructions/frontend/09-stack.md)
 
 ## Fluxo de Desenvolvimento Padrão
 
@@ -105,7 +106,7 @@ Especialista em implementação backend completa seguindo Clean Architecture, Do
 
 ### Instructions
 Ao implementar backend baseado em Feature Spec:
-1. 📋 **Consultar SEMPRE**: [09-stack.md](09-stack.md) para versões e dependências
+1. 📋 **Consultar SEMPRE**: [09-stack.md](./instructions/backend/09-stack.md) para versões e dependências do backend
 2. Seguir Clean Architecture: Domain → Application (UseCases/Handlers) → Infrastructure → API
 2. **Vertical Slices**: cada caso de uso em pasta própria (Create, Update, GetById, etc)
 3. **Handlers** isolados por operação (sem Services centrais)

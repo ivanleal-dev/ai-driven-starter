@@ -94,7 +94,6 @@ src/backend/
 │   ├── {{ProjectBase}}.Infrastructure.csproj
 │   ├── Data/
 │   │   ├── AppDbContext.cs
-│   │   ├── UnitOfWork.cs
 │   │   ├── Configurations/
 │   │   │   ├── UsuarioConfiguration.cs
 │   │   │   ├── PedidoConfiguration.cs

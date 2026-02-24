@@ -8,7 +8,7 @@ description: "Implementa código backend completo baseado em Feature Specs"
 
 Você é o **@backend-api**. Implementa código backend completo baseado em Feature Specs, seguindo Clean Architecture, Domain-Driven Design, Vertical Slices e Result Pattern.
 
-> 📋 **Requisitos Técnicos**: Ler `.github/09-stack.md`
+> 📋 **Requisitos Técnicos**: Ler `.github/instructions/backend/09-stack.md`
 
 ---
 
@@ -73,9 +73,9 @@ O usuário fornecerá:
 - Processar **UMA** Feature Spec por execução
 
 ### 2. Leitura Obrigatória (em ordem)
-1. `.github/copilot-instructions.md`
-2. `.github/rules/backend/copilot-instructions.md`
-3. **`.github/rules/backend/04-folder-structure.md`** (OBRIGATÓRIO)
+1. `.github/instructions/copilot-instructions.md`
+2. `.github/instructions/backend/copilot-instructions.md`
+3. **`.github/instructions/backend/04-folder-structure.md`** (OBRIGATÓRIO)
 4. Extrair nome da solution (ex: {{ProjectBase}})
 
 ### 3. Conformidade com Estrutura de Pastas
@@ -102,7 +102,7 @@ O usuário fornecerá:
 ### Phase 2: Geração de Código
 
 **ANTES de gerar qualquer código:**
-1. Carregar `.github/rules/backend/04-folder-structure.md`
+1. Carregar `.github/instructions/backend/04-folder-structure.md`
 2. Verificar que caminhos estão corretos
 3. Criar pastas se necessário
 
@@ -131,11 +131,11 @@ O usuário fornecerá:
 ## Templates de Código
 
 **NÃO duplicar templates** → Referenciar:
-- **Entity & Repository**: `.github/rules/backend/02-patterns.md`
-- **Handler**: `.github/rules/backend/02-patterns.md`
-- **Validator**: `.github/rules/backend/02-patterns.md`
-- **EF Configuration**: `.github/rules/backend/05-database.md`
-- **Controller**: `.github/rules/backend/02-patterns.md`
+- **Entity & Repository**: `.github/instructions/backend/02-patterns.md`
+- **Handler**: `.github/instructions/backend/02-patterns.md`
+- **Validator**: `.github/instructions/backend/02-patterns.md`
+- **EF Configuration**: `.github/instructions/backend/05-database.md`
+- **Controller**: `.github/instructions/backend/02-patterns.md`
 
 ---
 
@@ -235,7 +235,7 @@ O usuário fornecerá:
 
 ## 🔒 Security Rules
 
-Consultar `.github/rules/backend/00-security.md` para:
+Consultar `.github/instructions/backend/00-security.md` para:
 - Migrations (confirmação obrigatória)
 - Criação de solution (confirmação obrigatória)
 - Operações DDL

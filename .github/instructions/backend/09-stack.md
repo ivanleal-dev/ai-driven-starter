@@ -9,15 +9,15 @@
 ### Runtime & Framework
 | Tecnologia | Versão | Status |
 |------------|--------|--------|
-| **.NET** | `10.0` | ✅ Ativo |
-| **C#** | `12` | ✅ Ativo |
-| **ASP.NET Core** | `8.0` | ✅ Web API |
+| **.NET** | `11.0` | ✅ Ativo |
+| **C#** | `13` | ✅ Ativo |
+| **ASP.NET Core** | `11.0` | ✅ Web API |
 
 ### Banco de Dados
 | Tecnologia | Versão | Provider |
 |------------|--------|----------|
-| **PostgreSQL** | `16+` | Npgsql `8.0.0` |
-| **Entity Framework Core** | `8.2.0` | ORM Principal |
+| **PostgreSQL** | `17+` | Npgsql `8.1.0` |
+| **Entity Framework Core** | `11.0.0` | ORM Principal |
 
 ---
 
@@ -32,59 +32,59 @@
 ### ⚙️ **Application Layer**
 | Package | Versão | Uso |
 |---------|--------|-----|
-| `FluentValidation` | `11.11.0` | Validadores de requests |
-| `Microsoft.Extensions.Logging.Abstractions` | `8.0.0` | Interface de logging |
+| `FluentValidation` | `11.12.0` | Validadores de requests |
+| `Microsoft.Extensions.Logging.Abstractions` | `11.0.0` | Interface de logging |
 
 ```powershell
-dotnet add package FluentValidation --version 11.11.0
-dotnet add package Microsoft.Extensions.Logging.Abstractions --version 8.0.0
+dotnet add package FluentValidation --version 11.12.0
+dotnet add package Microsoft.Extensions.Logging.Abstractions --version 11.0.0
 ```
 
 ### 🗄️ **Infrastructure Layer**
 | Package | Versão | Uso |
 |---------|--------|-----|
-| `Microsoft.EntityFrameworkCore` | `8.2.0` | ORM core |
-| `Microsoft.EntityFrameworkCore.Tools` | `8.2.0` | CLI tools (migrations) |
-| `Microsoft.EntityFrameworkCore.Design` | `8.2.0` | Design-time services |
-| `Npgsql.EntityFrameworkCore.PostgreSQL` | `8.0.0` | Provider PostgreSQL |
-| `Microsoft.Extensions.Logging` | `8.0.0` | Logging implementation |
+| `Microsoft.EntityFrameworkCore` | `11.0.0` | ORM core |
+| `Microsoft.EntityFrameworkCore.Tools` | `11.0.0` | CLI tools (migrations) |
+| `Microsoft.EntityFrameworkCore.Design` | `11.0.0` | Design-time services |
+| `Npgsql.EntityFrameworkCore.PostgreSQL` | `8.1.0` | Provider PostgreSQL |
+| `Microsoft.Extensions.Logging` | `11.0.0` | Logging implementation |
 
 ```powershell
-dotnet add package Microsoft.EntityFrameworkCore --version 8.2.0
-dotnet add package Microsoft.EntityFrameworkCore.Tools --version 8.2.0
-dotnet add package Microsoft.EntityFrameworkCore.Design --version 8.2.0
-dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 8.0.0
-dotnet add package Microsoft.Extensions.Logging --version 8.0.0
+dotnet add package Microsoft.EntityFrameworkCore --version 11.0.0
+dotnet add package Microsoft.EntityFrameworkCore.Tools --version 11.0.0
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 11.0.0
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 8.1.0
+dotnet add package Microsoft.Extensions.Logging --version 11.0.0
 ```
 
 ### 🌐 **API Layer**
 | Package | Versão | Uso |
 |---------|--------|-----|
-| `Microsoft.AspNetCore.Authentication.JwtBearer` | `8.0.0` | Auth JWT |
-| `System.IdentityModel.Tokens.Jwt` | `8.0.1` | JWT tokens |
-| `Microsoft.Extensions.Logging` | `8.0.0` | Logging |
-| `Serilog.AspNetCore` | `8.1.1` | Structured logging |
+| `Microsoft.AspNetCore.Authentication.JwtBearer` | `11.0.0` | Auth JWT |
+| `System.IdentityModel.Tokens.Jwt` | `8.1.0` | JWT tokens |
+| `Microsoft.Extensions.Logging` | `11.0.0` | Logging |
+| `Serilog.AspNetCore` | `9.0.0` | Structured logging |
 
 ```powershell
-dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 8.0.0
-dotnet add package System.IdentityModel.Tokens.Jwt --version 8.0.1
-dotnet add package Microsoft.Extensions.Logging --version 8.0.0
-dotnet add package Serilog.AspNetCore --version 8.1.1
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 11.0.0
+dotnet add package System.IdentityModel.Tokens.Jwt --version 8.1.0
+dotnet add package Microsoft.Extensions.Logging --version 11.0.0
+dotnet add package Serilog.AspNetCore --version 9.0.0
 ```
 
 ### 🧪 **Test Projects**
 | Package | Versão | Uso |
 |---------|--------|-----|
-| `xunit` | `2.9.0` | Test framework |
-| `FluentAssertions` | `6.12.2` | Assertions expressivas |
-| `NSubstitute` | `5.1.0` | Mocking (preferido sobre Moq) |
-| `Microsoft.EntityFrameworkCore.InMemory` | `8.2.0` | InMemory DB para testes |
+| `xunit` | `2.10.0` | Test framework |
+| `FluentAssertions` | `7.0.0` | Assertions expressivas |
+| `NSubstitute` | `5.2.0` | Mocking (preferido sobre Moq) |
+| `Microsoft.EntityFrameworkCore.InMemory` | `11.0.0` | InMemory DB para testes |
 
 ```powershell
-dotnet new xunit --framework net10.0
-dotnet add package FluentAssertions --version 6.12.2
-dotnet add package NSubstitute --version 5.1.0
-dotnet add package Microsoft.EntityFrameworkCore.InMemory --version 8.2.0
+dotnet new xunit --framework net11.0
+dotnet add package FluentAssertions --version 7.0.0
+dotnet add package NSubstitute --version 5.2.0
+dotnet add package Microsoft.EntityFrameworkCore.InMemory --version 11.0.0
 ```
 
 ---
@@ -93,8 +93,8 @@ dotnet add package Microsoft.EntityFrameworkCore.InMemory --version 8.2.0
 
 ### Target Framework
 ```xml
-<TargetFramework>net10.0</TargetFramework>
-<LangVersion>12</LangVersion>
+<TargetFramework>net11.0</TargetFramework>
+<LangVersion>13</LangVersion>
 <Nullable>enable</Nullable>
 <ImplicitUsings>enable</ImplicitUsings>
 ```
@@ -193,9 +193,9 @@ tests/
 ### Docker Requirements
 ```dockerfile
 # Minimal runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine
+FROM mcr.microsoft.com/dotnet/aspnet:11.0-alpine
 # Development image  
-FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine
+FROM mcr.microsoft.com/dotnet/sdk:11.0-alpine
 ```
 
 ---
@@ -219,10 +219,10 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine
 
 | Documentação | Link |
 |--------------|------|
-| **.NET 10 Release** | [docs.microsoft.com/dotnet/core/whats-new](https://docs.microsoft.com/dotnet/core/whats-new) |
-| **EF Core 8.x** | [docs.microsoft.com/ef/core](https://docs.microsoft.com/ef/core) |
-| **ASP.NET Core 8** | [docs.microsoft.com/aspnet/core](https://docs.microsoft.com/aspnet/core) |
-| **PostgreSQL 16** | [postgresql.org/docs/16](https://postgresql.org/docs/16) |
+| **.NET 11 Release** | [docs.microsoft.com/dotnet/core/whats-new](https://docs.microsoft.com/dotnet/core/whats-new) |
+| **EF Core 11.x** | [docs.microsoft.com/ef/core](https://docs.microsoft.com/ef/core) |
+| **ASP.NET Core 11** | [docs.microsoft.com/aspnet/core](https://docs.microsoft.com/aspnet/core) |
+| **PostgreSQL 17** | [postgresql.org/docs/17](https://postgresql.org/docs/17) |
 | **FluentValidation** | [docs.fluentvalidation.net](https://docs.fluentvalidation.net) |
 
 ---
@@ -236,5 +236,5 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine
 
 ---
 
-*Última atualização: 11 de Fevereiro, 2026*
-*Versão: 1.0.0*
+*Última atualização: 20 de Fevereiro, 2026*
+*Versão: 1.1.0*

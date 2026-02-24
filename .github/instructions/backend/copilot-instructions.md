@@ -220,8 +220,9 @@ dotnet run --project src/backend/{{ProjectBase}}.API
 ## 📁 Estrutura de Documentação
 
 ```
-.github/rules/backend/
+.github/instructions/backend/
 ├── copilot-instructions.md         ← Índice (você está aqui)
+├── 00-security.md                  (segurança, migrations, DDL)
 ├── 01-architecture.md              (camadas, SOLID, DDD)
 ├── 02-patterns.md                  (templates de código)
 ├── 03-conventions.md               (nomenclatura & features)
@@ -229,7 +230,8 @@ dotnet run --project src/backend/{{ProjectBase}}.API
 ├── 05-database.md                  (EF Core, BD)
 ├── 06-testing.md                   (testes unitários)
 ├── 07-setup.md                     (criar solution)
-└── 08-legacy-migration.md          (migrar padrões)
+├── 08-legacy-migration.md          (migrar padrões)
+└── 09-stack.md                     (versões & dependências)
 ```
 
 ---
@@ -238,6 +240,7 @@ dotnet run --project src/backend/{{ProjectBase}}.API
 
 | Pergunta | Arquivo |
 |----------|---------|
+| "Preciso usar migrations?" | `00-security.md` |
 | "Como está organizada a arquitetura?" | `01-architecture.md` |
 | "Qual é o template para Entity/Handler?" | `02-patterns.md` |
 | "Como nomear minhas classes?" | `03-conventions.md` |
@@ -246,9 +249,10 @@ dotnet run --project src/backend/{{ProjectBase}}.API
 | "Como escrever testes?" | `06-testing.md` |
 | "Como criar um novo projeto?" | `07-setup.md` |
 | "Tenho Specification Pattern legado" | `08-legacy-migration.md` |
+| "Qual a versão do .NET / dependências?" | `09-stack.md` |
 
 ---
 
-> 📋 **Stack Completo**: [stack.md](stack.md)
+> 📋 **Stack Completo**: [09-stack.md](09-stack.md)
 
-**Última atualização:** 2026-02-10
+**Última atualização:** 2026-02-20

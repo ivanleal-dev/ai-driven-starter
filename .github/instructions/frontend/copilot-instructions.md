@@ -59,6 +59,42 @@ applyTo: 'src/frontend/**'
 - Idioma (PT-BR para domínio)
 - Imports ordenados
 
+### 6. **Stack & Versões**
+📖 Ver: `./09-stack.md`
+- React, Vite, TypeScript versions
+- Dependências instaladas
+- Configurações recomendadas
+
+---
+
+## 💡 Quando Consultar Cada Arquivo
+
+| Pergunta | Arquivo |
+|----------|----------|
+| "Qual é a estratégia de segurança?" | `00-security.md` |
+| "Como está a arquitetura do projeto?" | `01-architecture.md` |
+| "Como criar componentes?" | `02-components.md` |
+| "Como gerenciar rotas e estado?" | `03-state-routing.md` |
+| "Onde colocar meus arquivos?" | `04-folder-structure.md` |
+| "Como nomear arquivos e variáveis?" | `05-conventions.md` |
+| "Qual a versão do React / dependências?" | `09-stack.md` |
+
+---
+
+## 📁 Estrutura de Documentação
+
+```
+.github/instructions/frontend/
+├── copilot-instructions.md         ← Índice (você está aqui)
+├── 00-security.md                  (cookies, storage, XSS)
+├── 01-architecture.md              (VSA, isolamento)
+├── 02-components.md                (UI/Form/Layout)
+├── 03-state-routing.md             (React Router, Zustand, Query)
+├── 04-folder-structure.md          (features/, shared/, core/)
+├── 05-conventions.md               (naming, imports, idioma)
+└── 09-stack.md                     (versões & dependências)
+```
+
 ---
 
 ## 🎯 Quick Reference
@@ -102,6 +138,42 @@ core/              # ⚙️ Infraestrutura
 ├── router/           # AppRouter
 ├── store/            # Estado global
 └── config/           # env, queryClient
+```
+
+---
+
+## 🚀 Checklist para Nova Feature
+
+### 1. **Planejar com Feature Spec**
+```
+Ler: docs/specs/SPEC-XXX-*.md
+Identificar: páginas, formulários, chamadas API
+```
+
+### 2. **Implementar Vertical Slice**
+- [ ] **types/**: Interfaces e tipos TypeScript
+- [ ] **schemas/**: Schemas Zod para validação
+- [ ] **services/**: Chamadas API com axios
+- [ ] **hooks/**: Custom hooks (useQuery, useMutation)
+- [ ] **components/**: Componentes da feature
+- [ ] **pages/**: Páginas/rotas
+- [ ] **index.ts**: Public API (apenas o necessário)
+
+### 3. **Integrar com Roteamento**
+- [ ] Adicionar rota em `core/router/`
+- [ ] Exportar page pelo index.ts da feature
+- [ ] Testar navegação
+
+### 4. **Commit**
+```bash
+git commit -m "feat(spec-xxx): implementar [funcionalidade]
+
+- Criar feature clientes
+- Adicionar páginas ClientesPage, ClienteDetailsPage
+- Handlers para listar, criar, atualizar
+- Validação com Zod
+
+Refs: #SPEC-XXX"
 ```
 
 ---
@@ -323,3 +395,9 @@ export const httpClient = axios.create({
 - Zustand: https://zustand-demo.pmnd.rs
 - Tailwind CSS: https://tailwindcss.com
 - shadcn/ui: https://ui.shadcn.com
+
+---
+
+> 📋 **Stack Completo**: [09-stack.md](09-stack.md)
+
+**Última atualização:** 2026-02-20
